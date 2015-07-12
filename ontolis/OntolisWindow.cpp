@@ -182,6 +182,11 @@ void OntolisWindow::setupMenu() {
   editMenu->addSeparator();
   m_editNamespaces = editMenu->addAction(tr("Namespaces..."));
   m_editNamespaces->setEnabled(false);
+  editMenu->addSeparator();
+  m_editEvents = editMenu->addAction(tr("Edit events"));
+  //QAction *saveOntologyAsAction = fileMenu->addAction(tr("Save Ontology &As..."));
+  //saveOntologyAsAction->setShortcut(QKeySequence::SaveAs);
+
 
   QMenu *viewMenu = ui->menubar->addMenu(tr("&View"));
   QMenu *nameRegimeMenu = viewMenu->addMenu(tr("&Name regime"));

@@ -48,6 +48,7 @@ class OntolisWindow : public QMainWindow {
     QAction *m_redoAction = nullptr;
 
     QAction *m_editNamespaces = nullptr;
+    QAction *m_editEvents = nullptr;
 
     QMap<QString, QString> m_convertersMapping;
     QMap<QString, QString> m_transformatorsMapping;
