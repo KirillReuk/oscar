@@ -1,0 +1,1141 @@
+{
+    "last_id": "189",
+    "namespaces": {
+        "default": "http://knova.ru/ontolis-avis",
+        "ontolis-avis": "http://knova.ru/ontolis-avis",
+        "owl": "http://www.w3.org/2002/07/owl",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema",
+        "xsd": "http://www.w3.org/2001/XMLSchema"
+    },
+    "nodes": [
+        {
+            "attributes": {
+            },
+            "id": "28",
+            "name": "#nodeVisualization",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1115,
+            "position_y": 1002
+        },
+        {
+            "attributes": {
+            },
+            "id": "31",
+            "name": "ellipse",
+            "namespace": "",
+            "position_x": 981,
+            "position_y": 820
+        },
+        {
+            "attributes": {
+            },
+            "id": "35",
+            "name": "OLSAdaptiveNodeEllipseVisualizer",
+            "namespace": "",
+            "position_x": 970,
+            "position_y": 755
+        },
+        {
+            "attributes": {
+            },
+            "id": "38",
+            "name": "rounded rect",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 715,
+            "position_y": 890
+        },
+        {
+            "attributes": {
+            },
+            "id": "39",
+            "name": "OLSAdaptiveNodeRoundedRectVisualizer",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 816,
+            "position_y": 701
+        },
+        {
+            "attributes": {
+            },
+            "id": "44",
+            "name": "xRadius",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 661,
+            "position_y": 962
+        },
+        {
+            "attributes": {
+            },
+            "id": "48",
+            "name": "double",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 559,
+            "position_y": 1068
+        },
+        {
+            "attributes": {
+            },
+            "id": "49",
+            "name": "Радиус по X",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 656,
+            "position_y": 1069
+        },
+        {
+            "attributes": {
+            },
+            "id": "52",
+            "name": "yRadius",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 473,
+            "position_y": 950
+        },
+        {
+            "attributes": {
+            },
+            "id": "53",
+            "name": "5.0",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 567,
+            "position_y": 999
+        },
+        {
+            "attributes": {
+            },
+            "id": "58",
+            "name": "Радиус по Y",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 403,
+            "position_y": 1027
+        },
+        {
+            "attributes": {
+            },
+            "id": "60",
+            "name": "offset",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 569,
+            "position_y": 773
+        },
+        {
+            "attributes": {
+            },
+            "id": "64",
+            "name": "double",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 455,
+            "position_y": 740
+        },
+        {
+            "attributes": {
+            },
+            "id": "65",
+            "name": "5.0",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 481,
+            "position_y": 834
+        },
+        {
+            "attributes": {
+            },
+            "id": "66",
+            "name": "Отступ от текста",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 516,
+            "position_y": 698
+        },
+        {
+            "attributes": {
+            },
+            "id": "75",
+            "name": "../ontolis-avis-node-ellipse/ontolis-avis-node-ellipse",
+            "namespace": "",
+            "position_x": 1155,
+            "position_y": 849
+        },
+        {
+            "attributes": {
+            },
+            "id": "77",
+            "name": "../ontolis-avis-node-roundedrect/ontolis-avis-node-roundedrect",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 730,
+            "position_y": 1016
+        },
+        {
+            "attributes": {
+            },
+            "id": "79",
+            "name": "true",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 591,
+            "position_y": 877
+        },
+        {
+            "attributes": {
+            },
+            "id": "81",
+            "name": "false",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 862,
+            "position_y": 762
+        },
+        {
+            "attributes": {
+            },
+            "id": "83",
+            "name": "color",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1191,
+            "position_y": 780
+        },
+        {
+            "attributes": {
+            },
+            "id": "84",
+            "name": "../ontolis-avis-node-color/ontolis-avis-node-color",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 355,
+            "position_y": 288
+        },
+        {
+            "attributes": {
+            },
+            "id": "85",
+            "name": "OLSAdaptiveNodeColorVisualizer",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1346,
+            "position_y": 726
+        },
+        {
+            "attributes": {
+            },
+            "id": "89",
+            "name": "G",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1216,
+            "position_y": 499
+        },
+        {
+            "attributes": {
+            },
+            "id": "90",
+            "name": "Green",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1129,
+            "position_y": 418
+        },
+        {
+            "attributes": {
+            },
+            "id": "92",
+            "name": "R",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 994,
+            "position_y": 533
+        },
+        {
+            "attributes": {
+            },
+            "id": "93",
+            "name": "B",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1079,
+            "position_y": 511
+        },
+        {
+            "attributes": {
+            },
+            "id": "97",
+            "name": "230",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 674,
+            "position_y": 311
+        },
+        {
+            "attributes": {
+            },
+            "id": "111",
+            "name": "A",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 827,
+            "position_y": 269
+        },
+        {
+            "attributes": {
+            },
+            "id": "114",
+            "name": "Blue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 938,
+            "position_y": 288
+        },
+        {
+            "attributes": {
+            },
+            "id": "116",
+            "name": "Red",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1117,
+            "position_y": 341
+        },
+        {
+            "attributes": {
+            },
+            "id": "118",
+            "name": "Alpha",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1000,
+            "position_y": 233
+        },
+        {
+            "attributes": {
+            },
+            "id": "121",
+            "name": "true",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1263,
+            "position_y": 702
+        },
+        {
+            "attributes": {
+            },
+            "id": "123",
+            "name": "100",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1194,
+            "position_y": 377
+        },
+        {
+            "attributes": {
+            },
+            "id": "125",
+            "name": "hltColor",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1300,
+            "position_y": 544
+        },
+        {
+            "attributes": {
+            },
+            "id": "127",
+            "name": "G",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1274,
+            "position_y": 429
+        },
+        {
+            "attributes": {
+            },
+            "id": "128",
+            "name": "B",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 915,
+            "position_y": 349
+        },
+        {
+            "attributes": {
+            },
+            "id": "129",
+            "name": "R",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1345,
+            "position_y": 271
+        },
+        {
+            "attributes": {
+            },
+            "id": "130",
+            "name": "A",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1278,
+            "position_y": 200
+        },
+        {
+            "attributes": {
+            },
+            "id": "148",
+            "name": "240",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 740,
+            "position_y": 222
+        },
+        {
+            "attributes": {
+            },
+            "id": "150",
+            "name": "OLSAdaptiveNodeTextAreaVisualizer",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 617,
+            "position_y": 714
+        },
+        {
+            "attributes": {
+            },
+            "id": "151",
+            "name": "text area",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 629,
+            "position_y": 813
+        },
+        {
+            "attributes": {
+            },
+            "id": "155",
+            "name": "../ontolis-avis-node-textarea/ontolis-avis-node-textarea",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 200,
+            "position_y": 893
+        },
+        {
+            "attributes": {
+            },
+            "id": "160",
+            "name": "expand state",
+            "namespace": "",
+            "position_x": 463,
+            "position_y": 507
+        },
+        {
+            "attributes": {
+            },
+            "id": "161",
+            "name": "OLSAdaptiveNodeExpandStatusVisualizer",
+            "namespace": "",
+            "position_x": 399,
+            "position_y": 456
+        },
+        {
+            "attributes": {
+            },
+            "id": "162",
+            "name": "plusSize",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 368,
+            "position_y": 563
+        },
+        {
+            "attributes": {
+            },
+            "id": "166",
+            "name": "int",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 292,
+            "position_y": 593
+        },
+        {
+            "attributes": {
+            },
+            "id": "167",
+            "name": "4",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 386,
+            "position_y": 649
+        },
+        {
+            "attributes": {
+            },
+            "id": "168",
+            "name": "Длина знака '+'",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 303,
+            "position_y": 501
+        },
+        {
+            "attributes": {
+            },
+            "id": "172",
+            "name": "../ontolis-avis-node-expand-status/ontolis-avis-node-expand-status",
+            "namespace": "",
+            "position_x": 449,
+            "position_y": 642
+        },
+        {
+            "attributes": {
+            },
+            "id": "175",
+            "name": "200",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 918,
+            "position_y": 507
+        },
+        {
+            "attributes": {
+            },
+            "id": "177",
+            "name": "true",
+            "namespace": "",
+            "position_x": 0,
+            "position_y": 0
+        },
+        {
+            "attributes": {
+            },
+            "id": "179",
+            "name": "edge",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1269,
+            "position_y": 951
+        },
+        {
+            "attributes": {
+            },
+            "id": "181",
+            "name": "width",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1382,
+            "position_y": 903
+        },
+        {
+            "attributes": {
+            },
+            "id": "183",
+            "name": "double",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1331,
+            "position_y": 1020
+        },
+        {
+            "attributes": {
+            },
+            "id": "186",
+            "name": "2.0",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 0,
+            "position_y": 0
+        },
+        {
+            "attributes": {
+            },
+            "id": "188",
+            "name": "Толщина дуг",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "position_x": 1413,
+            "position_y": 868
+        }
+    ],
+    "relations": [
+        {
+            "attributes": {
+            },
+            "destination_node_id": "35",
+            "id": "36",
+            "name": "#hasVisClass",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "31"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "38",
+            "id": "41",
+            "name": "#hasDrawVisualizer",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "28"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "39",
+            "id": "42",
+            "name": "#hasVisClass",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "38"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "44",
+            "id": "46",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "38"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "48",
+            "id": "50",
+            "name": "#type",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "44"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "49",
+            "id": "51",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "44"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "53",
+            "id": "54",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "44"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "52",
+            "id": "55",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "38"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "48",
+            "id": "56",
+            "name": "#type",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "52"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "53",
+            "id": "57",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "52"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "58",
+            "id": "59",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "52"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "66",
+            "id": "67",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "60"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "64",
+            "id": "68",
+            "name": "#type",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "60"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "65",
+            "id": "69",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "60"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "75",
+            "id": "76",
+            "name": "#hasLibPath",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "31"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "77",
+            "id": "78",
+            "name": "#hasLibPath",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "38"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "79",
+            "id": "80",
+            "name": "#isDefault",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "38"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "81",
+            "id": "82",
+            "name": "#isDefault",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "31"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "84",
+            "id": "86",
+            "name": "#hasLibPath",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "83"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "85",
+            "id": "87",
+            "name": "#hasVisClass",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "83"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "83",
+            "id": "88",
+            "name": "#hasCustomisationVisualizer",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "28"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "90",
+            "id": "91",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "89"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "92",
+            "id": "94",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "83"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "89",
+            "id": "95",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "83"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "93",
+            "id": "96",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "83"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "97",
+            "id": "99",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "89"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "97",
+            "id": "101",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "93"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "31",
+            "id": "110",
+            "name": "#hasDrawVisualizer",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "28"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "111",
+            "id": "112",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "83"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "114",
+            "id": "115",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "93"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "116",
+            "id": "117",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "92"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "118",
+            "id": "120",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "111"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "125",
+            "id": "126",
+            "name": "#hasCustomisationVisualizer",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "28"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "129",
+            "id": "131",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "125"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "127",
+            "id": "132",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "125"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "128",
+            "id": "133",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "125"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "130",
+            "id": "134",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "125"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "90",
+            "id": "135",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "127"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "114",
+            "id": "136",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "128"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "118",
+            "id": "137",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "130"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "116",
+            "id": "138",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "129"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "123",
+            "id": "139",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "127"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "123",
+            "id": "140",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "129"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "97",
+            "id": "141",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "130"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "97",
+            "id": "142",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "128"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "85",
+            "id": "144",
+            "name": "#hasVisClass",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "125"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "84",
+            "id": "145",
+            "name": "#hasLibPath",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "125"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "121",
+            "id": "146",
+            "name": "#isDefault",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "83"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "148",
+            "id": "149",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "111"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "151",
+            "id": "152",
+            "name": "#hasCustomisationVisualizer",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "28"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "150",
+            "id": "153",
+            "name": "#hasVisClass",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "151"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "60",
+            "id": "154",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "151"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "155",
+            "id": "157",
+            "name": "#hasLibPath",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "151"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "79",
+            "id": "159",
+            "name": "#isDefault",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "151"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "160",
+            "id": "163",
+            "name": "#hasCustomisationVisualizer",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "28"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "161",
+            "id": "164",
+            "name": "#hasVisClass",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "160"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "162",
+            "id": "165",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "160"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "168",
+            "id": "169",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "162"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "166",
+            "id": "170",
+            "name": "#type",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "162"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "167",
+            "id": "171",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "162"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "172",
+            "id": "173",
+            "name": "#hasLibPath",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "160"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "79",
+            "id": "174",
+            "name": "#isDefault",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "160"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "175",
+            "id": "176",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "92"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "177",
+            "id": "178",
+            "name": "#isDefault",
+            "namespace": "",
+            "source_node_id": "31"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "179",
+            "id": "180",
+            "name": "#hasDrawVisualizer",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "28"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "181",
+            "id": "182",
+            "name": "#hasVisParameter",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "179"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "183",
+            "id": "185",
+            "name": "#type",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "181"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "186",
+            "id": "187",
+            "name": "#defaultValue",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "181"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "188",
+            "id": "189",
+            "name": "#hasVisName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "181"
+        }
+    ],
+    "visualize_ont_path": ""
+}

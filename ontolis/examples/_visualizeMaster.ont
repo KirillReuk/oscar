@@ -1,0 +1,259 @@
+{
+    "last_id": "152",
+    "namespaces": {
+        "ontolis-avis": "http://knova.ru/ontolis-avis",
+        "owl": "http://www.w3.org/2002/07/owl",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema",
+        "xsd": "http://www.w3.org/2001/XMLSchema",
+        "default": "http://knova.ru/visualize/example"
+    },
+    "nodes": [
+        {
+            "attributes": {
+            },
+            "id": "2",
+            "name": "vis1",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 516,
+            "position_y": 359
+        },
+        {
+            "attributes": {
+            },
+            "id": "4",
+            "name": "text area",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 617,
+            "position_y": 399
+        },
+        {
+            "attributes": {
+            },
+            "id": "13",
+            "name": "some Node",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 422,
+            "position_y": 307
+        },
+        {
+            "attributes": {
+            },
+            "id": "16",
+            "name": "some other Node",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 298,
+            "position_y": 226
+        },
+        {
+            "attributes": {
+            },
+            "id": "19",
+            "name": "vis2",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 551,
+            "position_y": 257
+        },
+        {
+            "attributes": {
+            },
+            "id": "21",
+            "name": "rounded rect",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 648,
+            "position_y": 292
+        },
+        {
+            "attributes": {
+            },
+            "id": "24",
+            "name": "10",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 647,
+            "position_y": 200
+        },
+        {
+            "attributes": {
+            },
+            "id": "25",
+            "name": "20",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 693,
+            "position_y": 238
+        },
+        {
+            "attributes": {
+            },
+            "id": "72",
+            "name": "20",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 642,
+            "position_y": 359
+        },
+        {
+            "attributes": {
+            },
+            "id": "103",
+            "name": "vis3",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 277,
+            "position_y": 311
+        },
+        {
+            "attributes": {
+            },
+            "id": "104",
+            "name": "128",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 200,
+            "position_y": 368
+        },
+        {
+            "attributes": {
+            },
+            "id": "107",
+            "name": "hltColor",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 283,
+            "position_y": 400
+        },
+        {
+            "attributes": {
+            },
+            "id": "147",
+            "name": "vis4",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 433,
+            "position_y": 402
+        },
+        {
+            "attributes": {
+            },
+            "id": "149",
+            "name": "ellipse",
+            "namespace": "http://knova.ru/visualize/example",
+            "position_x": 478,
+            "position_y": 449
+        }
+    ],
+    "relations": [
+        {
+            "attributes": {
+            },
+            "destination_node_id": "4",
+            "id": "7",
+            "name": "methodName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "2"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "2",
+            "id": "14",
+            "name": "hasVisMethod",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "13"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "19",
+            "id": "20",
+            "name": "hasVisMethod",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "16"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "21",
+            "id": "22",
+            "name": "methodName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "19"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "16",
+            "id": "23",
+            "name": "someRelation",
+            "namespace": "http://knova.ru/visualize/example",
+            "source_node_id": "13"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "24",
+            "id": "26",
+            "name": "xRadius",
+            "namespace": "http://knova.ru/visualize/example",
+            "source_node_id": "19"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "25",
+            "id": "27",
+            "name": "yRadius",
+            "namespace": "http://knova.ru/visualize/example",
+            "source_node_id": "19"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "72",
+            "id": "74",
+            "name": "offset",
+            "namespace": "http://knova.ru/visualize/example",
+            "source_node_id": "2"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "104",
+            "id": "105",
+            "name": "A",
+            "namespace": "http://knova.ru/visualize/example",
+            "source_node_id": "103"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "107",
+            "id": "108",
+            "name": "methodName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "103"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "103",
+            "id": "109",
+            "name": "hasVisMethod",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "13"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "147",
+            "id": "148",
+            "name": "hasVisMethod",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "13"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "149",
+            "id": "150",
+            "name": "methodName",
+            "namespace": "http://knova.ru/ontolis-avis",
+            "source_node_id": "147"
+        }
+    ],
+    "visualize_ont_path": "_visualizeMaster.vis.ont"
+}

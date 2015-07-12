@@ -1,0 +1,40 @@
+{
+    "last_id": "4",
+    "nodes": [
+        {
+            "attributes": {
+            },
+            "id": "1",
+            "name": "Node A",
+            "position_x": -385.23367483996338,
+            "position_y": -107.65153106424326
+        },
+        {
+            "attributes": {
+            },
+            "id": "2",
+            "name": "Node B",
+            "position_x": 0,
+            "position_y": 0
+        }
+    ],
+    "relations": [
+        {
+            "attributes": {
+            },
+            "destination_node_id": "2",
+            "id": "3",
+            "name": "A to B",
+            "source_node_id": "1"
+        },
+        {
+            "attributes": {
+            },
+            "destination_node_id": "1",
+            "id": "4",
+            "name": "B to A",
+            "source_node_id": "2"
+        }
+    ],
+    "visualize_ont_path": ""
+}

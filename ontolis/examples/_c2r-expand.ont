@@ -1,0 +1,16 @@
+{
+    "last_id": "1",
+    "nodes": [
+        {
+            "attributes": {
+            },
+            "id": "1",
+            "name": "USER.http://www\\.semanticweb\\.org/м/ontologies/2013/10/untitled-ontology-11#000000000002.m1=apmmic,m2=mailing",
+            "position_x": 0,
+            "position_y": 0
+        }
+    ],
+    "relations": [
+    ],
+    "visualize_ont_path": "_visualizeMaster.vis.ont"
+}
