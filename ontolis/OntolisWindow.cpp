@@ -389,19 +389,20 @@ void OntolisWindow::editEventsSlot()
     QObject::connect(searchLine, &QLineEdit::textChanged, [proxyModel](const QString & text){
         proxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
     });
-    QGroupBox *groupBox = new QGroupBox(tr("Filter"), window);
+    QGroupBox *groupBox = new QGroupBox(tr("Edges"), window);
     QVBoxLayout *groupBoxLayout = new QVBoxLayout(window);
     groupBoxLayout->addWidget(searchLine);
     groupBox->setLayout(groupBoxLayout);
 
     QVBoxLayout *edgesLayout = new QVBoxLayout();
+    //edgesLayout->addWidget(edgesLabel);
     edgesLayout->addWidget(groupBox);
     edgesLayout->addWidget(idsList);
     // ^ edgesList ^
 
 
-    QSet<QString> typeIds;
-    typeIds << "adad" << "wetree";
+    QSet<QString> eventIds;
+    eventIds << "onClick" << "onDoubleClick" << "onFocus";
 
     QListView *eventList = new QListView(window);
     eventList->setSelectionMode(QListView::SingleSelection);
@@ -412,7 +413,7 @@ void OntolisWindow::editEventsSlot()
     eventsProxyModel->sort(0, Qt::AscendingOrder);
     eventList->setModel(eventsProxyModel);
     int eventTypesCount = 0;
-    for (const QString &typeId : typeIds) {
+    for (const QString &typeId : eventIds) {
         auto item = new QStandardItem(typeId);
         item->setEditable(false);
         eventsModel->setItem(eventTypesCount++, item);
@@ -422,7 +423,7 @@ void OntolisWindow::editEventsSlot()
     QObject::connect(eventsSearchLine, &QLineEdit::textChanged, [eventsProxyModel](const QString & text){
         eventsProxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
     });
-    QGroupBox *eventsGroupBox = new QGroupBox(tr("Filter"), window);
+    QGroupBox *eventsGroupBox = new QGroupBox(tr("Events"), window);
     QVBoxLayout *eventsGroupBoxLayout = new QVBoxLayout(window);
     eventsGroupBoxLayout->addWidget(eventsSearchLine);
     eventsGroupBox->setLayout(eventsGroupBoxLayout);
@@ -434,7 +435,8 @@ void OntolisWindow::editEventsSlot()
 
     //  ^  events  ^
 
-    typeIds << "adad" << "wetree";
+    QSet<QString> actionIds;
+    actionIds << "Highlight";
 
     QListView *actionList = new QListView(window);
     actionList->setSelectionMode(QListView::SingleSelection);
@@ -445,7 +447,7 @@ void OntolisWindow::editEventsSlot()
     actionsProxyModel->sort(0, Qt::AscendingOrder);
     actionList->setModel(actionsProxyModel);
     int actionTypesCount = 0;
-    for (const QString &typeId : typeIds) {
+    for (const QString &typeId : actionIds) {
         auto item = new QStandardItem(typeId);
         item->setEditable(false);
         actionsModel->setItem(actionTypesCount++, item);
@@ -455,7 +457,7 @@ void OntolisWindow::editEventsSlot()
     QObject::connect(actionsSearchLine, &QLineEdit::textChanged, [actionsProxyModel](const QString & text){
         actionsProxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
     });
-    QGroupBox *actionsGroupBox = new QGroupBox(tr("Filter"), window);
+    QGroupBox *actionsGroupBox = new QGroupBox(tr("Actions"), window);
     QVBoxLayout *actionsGroupBoxLayout = new QVBoxLayout(window);
     actionsGroupBoxLayout->addWidget(actionsSearchLine);
     actionsGroupBox->setLayout(actionsGroupBoxLayout);
@@ -464,17 +466,40 @@ void OntolisWindow::editEventsSlot()
     actionsLayout->addWidget(actionList);
     //actions ^
 
-
     QTableWidget *activeList = new QTableWidget(window);
-    //activeList->setSelectionMode(QTableView::SingleSelection);
+    activeList->setColumnCount(2);
+    activeList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    QStringList tableLabels;
+    tableLabels << "Event" << "Action";
+    activeList->setHorizontalHeaderLabels(tableLabels);
+    QHeaderView* header = activeList->horizontalHeader();
+    header->setSectionResizeMode(QHeaderView::Stretch);
+    header->setHighlightSections(false);
 
-    QDialogButtonBox *openCloseButtonBox = new QDialogButtonBox(QDialogButtonBox::Open | QDialogButtonBox::Cancel | QDialogButtonBox::Close, window);
+    QDialogButtonBox *openCloseButtonBox = new QDialogButtonBox(QDialogButtonBox::Open | QDialogButtonBox::No | QDialogButtonBox::Close, window);
 
     connect(openCloseButtonBox, &QDialogButtonBox::accepted, [this, idsList, eventList, actionList, activeList](){
+        if ((idsList->selectionModel()->hasSelection())&&(eventList->selectionModel()->hasSelection())&&(actionList->selectionModel()->hasSelection()))
+        {
+            QString eventData = idsList->selectionModel()->selection().indexes()[0].data().toString()+", "+eventList->selectionModel()->selection().indexes()[0].data().toString();
+            QString actionData = actionList->selectionModel()->selection().indexes()[0].data().toString();
+            if (!activeList->findItems(eventData, Qt::MatchFixedString).isEmpty())
+                return;
 
+            int newRowIndex = activeList->rowCount();
+            activeList->insertRow(newRowIndex);
+            QTableWidgetItem *newEventItem = new QTableWidgetItem(eventData);
+            QTableWidgetItem *newActionItem = new QTableWidgetItem(actionData);
+            activeList->setItem(newRowIndex, 0, newEventItem);
+            activeList->setItem(newRowIndex, 1, newActionItem);
+        }
+    });
+    connect(openCloseButtonBox, &QDialogButtonBox::rejected, [window, activeList](){
+        foreach (QTableWidgetItem *item, activeList->selectedItems())
+            activeList->removeRow(item->row());
     });
     connect(openCloseButtonBox, &QDialogButtonBox::rejected, [window](){
-        window->close();
+       // window->close();
     });
     QGridLayout *mainLayout = new QGridLayout(window);
     mainLayout->addLayout(edgesLayout, 0, 0);
@@ -482,7 +507,6 @@ void OntolisWindow::editEventsSlot()
     mainLayout->addLayout(actionsLayout, 0, 2);
     mainLayout->addWidget(activeList, 1, 0, 1, 3);
     mainLayout->addWidget(openCloseButtonBox, 2, 0, 1, 3);
-
 
     window->setWindowTitle(tr("Edit events"));
     window->show();
