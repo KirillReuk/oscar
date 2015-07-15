@@ -184,9 +184,7 @@ void OntolisWindow::setupMenu() {
   m_editNamespaces->setEnabled(false);
   editMenu->addSeparator();
   m_editEvents = editMenu->addAction(tr("Edit events"));
-  //QAction *saveOntologyAsAction = fileMenu->addAction(tr("Save Ontology &As..."));
-  //saveOntologyAsAction->setShortcut(QKeySequence::SaveAs);
-
+  connect(m_editEvents, &QAction::triggered, this, &OntolisWindow::editEventsSlot);
 
   QMenu *viewMenu = ui->menubar->addMenu(tr("&View"));
   QMenu *nameRegimeMenu = viewMenu->addMenu(tr("&Name regime"));
@@ -358,6 +356,136 @@ void OntolisWindow::editRelationVisualizationParametersSlot(RelationTypeId typeI
         else
             relationVisualizerMaster->resetEdgeWidth(typeId);
     }
+}
+
+void OntolisWindow::editEventsSlot()
+{
+    if (ui->tabWidget->count() == 0)
+        return;
+    OLSOntologyDataController *dataController = m_openOntologyWidgets[ui->tabWidget->currentIndex()]->dataController();
+    int relationsCount = dataController->relationCount();
+    QSet<RelationTypeId> relationTypeIds;
+    for (int i=0; i < relationsCount; i++)
+    {
+        relationTypeIds << dataController->getRelationByIndex(i)->name;
+    }
+    QWidget *window = new QWidget();
+    QListView *idsList = new QListView(window);
+    idsList->setSelectionMode(QListView::SingleSelection);
+    QStandardItemModel *model = new QStandardItemModel(window);
+    QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel(window);
+    proxyModel->setSourceModel(model);
+    proxyModel->setFilterKeyColumn(0);
+    proxyModel->sort(0, Qt::AscendingOrder);
+    idsList->setModel(proxyModel);
+    int relationsTypesCount = 0;
+    for (const RelationTypeId &relationTypeId : relationTypeIds) {
+        auto item = new QStandardItem(relationTypeId);
+        item->setEditable(false);
+        model->setItem(relationsTypesCount++, item);
+    }
+    QLineEdit *searchLine = new QLineEdit(window);
+    searchLine->setClearButtonEnabled(true);
+    QObject::connect(searchLine, &QLineEdit::textChanged, [proxyModel](const QString & text){
+        proxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
+    });
+    QGroupBox *groupBox = new QGroupBox(tr("Filter"), window);
+    QVBoxLayout *groupBoxLayout = new QVBoxLayout(window);
+    groupBoxLayout->addWidget(searchLine);
+    groupBox->setLayout(groupBoxLayout);
+
+    QVBoxLayout *edgesLayout = new QVBoxLayout();
+    edgesLayout->addWidget(groupBox);
+    edgesLayout->addWidget(idsList);
+    // ^ edgesList ^
+
+
+    QSet<QString> typeIds;
+    typeIds << "adad" << "wetree";
+
+    QListView *eventList = new QListView(window);
+    eventList->setSelectionMode(QListView::SingleSelection);
+    QStandardItemModel *eventsModel = new QStandardItemModel(window);
+    QSortFilterProxyModel *eventsProxyModel = new QSortFilterProxyModel(window);
+    eventsProxyModel->setSourceModel(eventsModel);
+    eventsProxyModel->setFilterKeyColumn(0);
+    eventsProxyModel->sort(0, Qt::AscendingOrder);
+    eventList->setModel(eventsProxyModel);
+    int eventTypesCount = 0;
+    for (const QString &typeId : typeIds) {
+        auto item = new QStandardItem(typeId);
+        item->setEditable(false);
+        eventsModel->setItem(eventTypesCount++, item);
+    }
+    QLineEdit *eventsSearchLine = new QLineEdit(window);
+    eventsSearchLine->setClearButtonEnabled(true);
+    QObject::connect(eventsSearchLine, &QLineEdit::textChanged, [eventsProxyModel](const QString & text){
+        eventsProxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
+    });
+    QGroupBox *eventsGroupBox = new QGroupBox(tr("Filter"), window);
+    QVBoxLayout *eventsGroupBoxLayout = new QVBoxLayout(window);
+    eventsGroupBoxLayout->addWidget(eventsSearchLine);
+    eventsGroupBox->setLayout(eventsGroupBoxLayout);
+
+    QVBoxLayout *eventsLayout = new QVBoxLayout();
+    eventsLayout->addWidget(eventsGroupBox);
+    eventsLayout->addWidget(eventList);
+
+
+    //  ^  events  ^
+
+    typeIds << "adad" << "wetree";
+
+    QListView *actionList = new QListView(window);
+    actionList->setSelectionMode(QListView::SingleSelection);
+    QStandardItemModel *actionsModel = new QStandardItemModel(window);
+    QSortFilterProxyModel *actionsProxyModel = new QSortFilterProxyModel(window);
+    actionsProxyModel->setSourceModel(actionsModel);
+    actionsProxyModel->setFilterKeyColumn(0);
+    actionsProxyModel->sort(0, Qt::AscendingOrder);
+    actionList->setModel(actionsProxyModel);
+    int actionTypesCount = 0;
+    for (const QString &typeId : typeIds) {
+        auto item = new QStandardItem(typeId);
+        item->setEditable(false);
+        actionsModel->setItem(actionTypesCount++, item);
+    }
+    QLineEdit *actionsSearchLine = new QLineEdit(window);
+    actionsSearchLine->setClearButtonEnabled(true);
+    QObject::connect(actionsSearchLine, &QLineEdit::textChanged, [actionsProxyModel](const QString & text){
+        actionsProxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
+    });
+    QGroupBox *actionsGroupBox = new QGroupBox(tr("Filter"), window);
+    QVBoxLayout *actionsGroupBoxLayout = new QVBoxLayout(window);
+    actionsGroupBoxLayout->addWidget(actionsSearchLine);
+    actionsGroupBox->setLayout(actionsGroupBoxLayout);
+    QVBoxLayout *actionsLayout = new QVBoxLayout();
+    actionsLayout->addWidget(actionsGroupBox);
+    actionsLayout->addWidget(actionList);
+    //actions ^
+
+
+    QTableWidget *activeList = new QTableWidget(window);
+    //activeList->setSelectionMode(QTableView::SingleSelection);
+
+    QDialogButtonBox *openCloseButtonBox = new QDialogButtonBox(QDialogButtonBox::Open | QDialogButtonBox::Cancel | QDialogButtonBox::Close, window);
+
+    connect(openCloseButtonBox, &QDialogButtonBox::accepted, [this, idsList, eventList, actionList, activeList](){
+
+    });
+    connect(openCloseButtonBox, &QDialogButtonBox::rejected, [window](){
+        window->close();
+    });
+    QGridLayout *mainLayout = new QGridLayout(window);
+    mainLayout->addLayout(edgesLayout, 0, 0);
+    mainLayout->addLayout(eventsLayout, 0, 1);
+    mainLayout->addLayout(actionsLayout, 0, 2);
+    mainLayout->addWidget(activeList, 1, 0, 1, 3);
+    mainLayout->addWidget(openCloseButtonBox, 2, 0, 1, 3);
+
+
+    window->setWindowTitle(tr("Edit events"));
+    window->show();
 }
 
 void OntolisWindow::selectRelationTypeSlot()

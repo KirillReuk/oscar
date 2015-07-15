@@ -82,6 +82,8 @@ class OntolisWindow : public QMainWindow {
 
     void transformSlot();
 
+    void editEventsSlot();
+
     void moveToStartSlot();
     void moveForwardSlot();
     void moveBackwardSlot();

@@ -44,7 +44,7 @@ HEADERS  += \
 FORMS    += \
     OntolisWindow.ui \
     widgets/OntologyGraph/OLSOntologyGraphAttributeEditor.ui \
-    widgets/OntologyGraph/OLSOntologyGraphWidget.ui
+    widgets/OntologyGraph/OLSOntologyGraphWidget.ui \
 
 LIBS += \
     -L$$OUT_PWD/../ontolis-lib -lontolis-lib \
