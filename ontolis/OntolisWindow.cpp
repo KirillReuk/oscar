@@ -476,9 +476,23 @@ void OntolisWindow::editEventsSlot()
     header->setSectionResizeMode(QHeaderView::Stretch);
     header->setHighlightSections(false);
 
-    QDialogButtonBox *openCloseButtonBox = new QDialogButtonBox(QDialogButtonBox::Open | QDialogButtonBox::No | QDialogButtonBox::Close, window);
 
-    connect(openCloseButtonBox, &QDialogButtonBox::accepted, [this, idsList, eventList, actionList, activeList](){
+    QPushButton *addButton = new QPushButton(tr("&Add"));
+    addButton->setDefault(true);
+
+    QPushButton *removeButton = new QPushButton(tr("&Remove"));
+    removeButton->setDefault(true);
+
+    QPushButton *applyButton = new QPushButton(tr("&Apply"));
+    applyButton->setDefault(true);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox();
+    buttonBox->addButton(addButton, QDialogButtonBox::AcceptRole);
+    buttonBox->addButton(removeButton, QDialogButtonBox::RejectRole);
+    buttonBox->addButton(applyButton, QDialogButtonBox::HelpRole);
+    //не смог рассовать сигналы по кнопкам, сделел через стандартные роли :(
+
+    connect(buttonBox, &QDialogButtonBox::accepted, [idsList, eventList, actionList, activeList](){
         if ((idsList->selectionModel()->hasSelection())&&(eventList->selectionModel()->hasSelection())&&(actionList->selectionModel()->hasSelection()))
         {
             QString eventData = idsList->selectionModel()->selection().indexes()[0].data().toString()+", "+eventList->selectionModel()->selection().indexes()[0].data().toString();
@@ -494,23 +508,26 @@ void OntolisWindow::editEventsSlot()
             activeList->setItem(newRowIndex, 1, newActionItem);
         }
     });
-    connect(openCloseButtonBox, &QDialogButtonBox::rejected, [window, activeList](){
+    connect(buttonBox, &QDialogButtonBox::rejected, [activeList](){
         foreach (QTableWidgetItem *item, activeList->selectedItems())
             activeList->removeRow(item->row());
     });
-    connect(openCloseButtonBox, &QDialogButtonBox::rejected, [window](){
-       // window->close();
+    connect(buttonBox, &QDialogButtonBox::helpRequested, [window](){
+        window->close();
     });
+    //connect(this, SIGNAL(clicked(addButton)), SLOT(dialogButtonClicked(buttonBox->buttonRole(addButton))));
+
     QGridLayout *mainLayout = new QGridLayout(window);
     mainLayout->addLayout(edgesLayout, 0, 0);
     mainLayout->addLayout(eventsLayout, 0, 1);
     mainLayout->addLayout(actionsLayout, 0, 2);
     mainLayout->addWidget(activeList, 1, 0, 1, 3);
-    mainLayout->addWidget(openCloseButtonBox, 2, 0, 1, 3);
+    mainLayout->addWidget(buttonBox, 2, 0, 1, 3);
 
     window->setWindowTitle(tr("Edit events"));
     window->show();
 }
+
 
 void OntolisWindow::selectRelationTypeSlot()
 {
