@@ -361,45 +361,9 @@ void OntolisWindow::editRelationVisualizationParametersSlot(RelationTypeId typeI
 void OntolisWindow::editEventsSlot()
 {
     if (ui->tabWidget->count() == 0)
-        return;
-    OLSOntologyDataController *dataController = m_openOntologyWidgets[ui->tabWidget->currentIndex()]->dataController();
-    int relationsCount = dataController->relationCount();
-    QSet<RelationTypeId> relationTypeIds;
-    for (int i=0; i < relationsCount; i++)
-    {
-        relationTypeIds << dataController->getRelationByIndex(i)->name;
-    }
+        return; //если онтологий не открыто, выйти
+
     QWidget *window = new QWidget();
-    QListView *idsList = new QListView(window);
-    idsList->setSelectionMode(QListView::SingleSelection);
-    QStandardItemModel *model = new QStandardItemModel(window);
-    QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel(window);
-    proxyModel->setSourceModel(model);
-    proxyModel->setFilterKeyColumn(0);
-    proxyModel->sort(0, Qt::AscendingOrder);
-    idsList->setModel(proxyModel);
-    int relationsTypesCount = 0;
-    for (const RelationTypeId &relationTypeId : relationTypeIds) {
-        auto item = new QStandardItem(relationTypeId);
-        item->setEditable(false);
-        model->setItem(relationsTypesCount++, item);
-    }
-    QLineEdit *searchLine = new QLineEdit(window);
-    searchLine->setClearButtonEnabled(true);
-    QObject::connect(searchLine, &QLineEdit::textChanged, [proxyModel](const QString & text){
-        proxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
-    });
-    QGroupBox *groupBox = new QGroupBox(tr("Edges"), window);
-    QVBoxLayout *groupBoxLayout = new QVBoxLayout(window);
-    groupBoxLayout->addWidget(searchLine);
-    groupBox->setLayout(groupBoxLayout);
-
-    QVBoxLayout *edgesLayout = new QVBoxLayout();
-    //edgesLayout->addWidget(edgesLabel);
-    edgesLayout->addWidget(groupBox);
-    edgesLayout->addWidget(idsList);
-    // ^ edgesList ^-----------------------------------------------------------------
-
 
     QSet<QString> eventIds;
     eventIds << "onClick" << "OnRightClick" << "onDoubleClick" << "onFocus" << "OnMouseEnter" << "OnMouseLeave";
@@ -491,16 +455,14 @@ void OntolisWindow::editEventsSlot()
     buttonBox->addButton(applyButton, QDialogButtonBox::HelpRole);
     //не смог рассовать сигналы по кнопкам, сделел через стандартные роли :(
 
-    connect(buttonBox, &QDialogButtonBox::accepted, [idsList, eventList, actionList, activeList](){
-        if ((idsList->selectionModel()->hasSelection())&&(eventList->selectionModel()->hasSelection())&&(actionList->selectionModel()->hasSelection()))
+    connect(buttonBox, &QDialogButtonBox::accepted, [eventList, actionList, activeList](){
+        if ((eventList->selectionModel()->hasSelection())&&(actionList->selectionModel()->hasSelection()))
         {
-            QString idName = idsList->selectionModel()->selection().indexes()[0].data().toString();
             QString eventName = eventList->selectionModel()->selection().indexes()[0].data().toString();
             QString actionName = actionList->selectionModel()->selection().indexes()[0].data().toString();
             //connectingActions
 
-
-            QString eventData = idName+", "+eventName;
+            QString eventData = eventName;
             QString actionData = actionName;
             if (!activeList->findItems(eventData, Qt::MatchFixedString).isEmpty())
                 return;
@@ -642,14 +604,13 @@ void OntolisWindow::editEventsSlot()
     });
 
     QGridLayout *edgesPageLayout = new QGridLayout();
-    edgesPageLayout->addLayout(edgesLayout, 0, 0);
-    edgesPageLayout->addLayout(eventsLayout, 0, 1);
-    edgesPageLayout->addLayout(actionsLayout, 0, 2);
-    edgesPageLayout->addWidget(activeList, 1, 0, 1, 3);
-    edgesPageLayout->addWidget(buttonBox, 2, 0, 1, 3);
+    //edgesPageLayout->addLayout(edgesLayout, 0, 0);
+    edgesPageLayout->addLayout(eventsLayout, 0, 0);
+    edgesPageLayout->addLayout(actionsLayout, 0, 1);
+    edgesPageLayout->addWidget(activeList, 1, 0, 1, 2);
+    edgesPageLayout->addWidget(buttonBox, 2, 0, 1, 2);
     QWidget *edgesPageWidget  = new QWidget(window);
     edgesPageWidget->setLayout(edgesPageLayout);
-
 
 
     QGridLayout *nodesPageLayout = new QGridLayout();
