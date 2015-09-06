@@ -398,11 +398,11 @@ void OntolisWindow::editEventsSlot()
     //edgesLayout->addWidget(edgesLabel);
     edgesLayout->addWidget(groupBox);
     edgesLayout->addWidget(idsList);
-    // ^ edgesList ^
+    // ^ edgesList ^-----------------------------------------------------------------
 
 
     QSet<QString> eventIds;
-    eventIds << "onClick" << "onDoubleClick" << "onFocus";
+    eventIds << "onClick" << "OnRightClick" << "onDoubleClick" << "onFocus" << "OnMouseEnter" << "OnMouseLeave";
 
     QListView *eventList = new QListView(window);
     eventList->setSelectionMode(QListView::SingleSelection);
@@ -432,11 +432,10 @@ void OntolisWindow::editEventsSlot()
     eventsLayout->addWidget(eventsGroupBox);
     eventsLayout->addWidget(eventList);
 
-
-    //  ^  events  ^
+    //  ^  events  ^--------------------------------------------------------------
 
     QSet<QString> actionIds;
-    actionIds << "Highlight";
+    actionIds << "Highlight" << "Highlight With Adjacent" << "Open options" << "Show Tip" << "Delete";
 
     QListView *actionList = new QListView(window);
     actionList->setSelectionMode(QListView::SingleSelection);
@@ -464,7 +463,7 @@ void OntolisWindow::editEventsSlot()
     QVBoxLayout *actionsLayout = new QVBoxLayout();
     actionsLayout->addWidget(actionsGroupBox);
     actionsLayout->addWidget(actionList);
-    //actions ^
+    //actions ^---------------------------------------------------------------------
 
     QTableWidget *activeList = new QTableWidget(window);
     activeList->setColumnCount(2);
@@ -495,8 +494,14 @@ void OntolisWindow::editEventsSlot()
     connect(buttonBox, &QDialogButtonBox::accepted, [idsList, eventList, actionList, activeList](){
         if ((idsList->selectionModel()->hasSelection())&&(eventList->selectionModel()->hasSelection())&&(actionList->selectionModel()->hasSelection()))
         {
-            QString eventData = idsList->selectionModel()->selection().indexes()[0].data().toString()+", "+eventList->selectionModel()->selection().indexes()[0].data().toString();
-            QString actionData = actionList->selectionModel()->selection().indexes()[0].data().toString();
+            QString idName = idsList->selectionModel()->selection().indexes()[0].data().toString();
+            QString eventName = eventList->selectionModel()->selection().indexes()[0].data().toString();
+            QString actionName = actionList->selectionModel()->selection().indexes()[0].data().toString();
+            //connectingActions
+
+
+            QString eventData = idName+", "+eventName;
+            QString actionData = actionName;
             if (!activeList->findItems(eventData, Qt::MatchFixedString).isEmpty())
                 return;
 
@@ -517,14 +522,155 @@ void OntolisWindow::editEventsSlot()
     });
     //connect(this, SIGNAL(clicked(addButton)), SLOT(dialogButtonClicked(buttonBox->buttonRole(addButton))));
 
-    QGridLayout *mainLayout = new QGridLayout(window);
-    mainLayout->addLayout(edgesLayout, 0, 0);
-    mainLayout->addLayout(eventsLayout, 0, 1);
-    mainLayout->addLayout(actionsLayout, 0, 2);
-    mainLayout->addWidget(activeList, 1, 0, 1, 3);
-    mainLayout->addWidget(buttonBox, 2, 0, 1, 3);
+
+
+    QSet<QString> nodeEventIds;
+    nodeEventIds << "onClick" << "OnRightClick" << "onDoubleClick" << "onFocus" << "OnMouseEnter" << "OnMouseLeave";
+
+    QListView *nodeEventList = new QListView(window);
+    nodeEventList->setSelectionMode(QListView::SingleSelection);
+    QStandardItemModel *nodeEventsModel = new QStandardItemModel(window);
+    QSortFilterProxyModel *nodeEventsProxyModel = new QSortFilterProxyModel(window);
+    nodeEventsProxyModel->setSourceModel(nodeEventsModel);
+    nodeEventsProxyModel->setFilterKeyColumn(0);
+    nodeEventsProxyModel->sort(0, Qt::AscendingOrder);
+    nodeEventList->setModel(nodeEventsProxyModel);
+    int nodeEventTypesCount = 0;
+    for (const QString &typeId : nodeEventIds) {
+        auto item = new QStandardItem(typeId);
+        item->setEditable(false);
+        nodeEventsModel->setItem(nodeEventTypesCount++, item);
+    }
+    QLineEdit *nodeEventsSearchLine = new QLineEdit(window);
+    nodeEventsSearchLine->setClearButtonEnabled(true);
+    QObject::connect(nodeEventsSearchLine, &QLineEdit::textChanged, [nodeEventsProxyModel](const QString & text){
+        nodeEventsProxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
+    });
+    QGroupBox *nodeEventsGroupBox = new QGroupBox(tr("Events"), window);
+    QVBoxLayout *nodeEventsGroupBoxLayout = new QVBoxLayout(window);
+    nodeEventsGroupBoxLayout->addWidget(nodeEventsSearchLine);
+    nodeEventsGroupBox->setLayout(nodeEventsGroupBoxLayout);
+
+    QVBoxLayout *nodeEventsLayout = new QVBoxLayout();
+    nodeEventsLayout->addWidget(nodeEventsGroupBox);
+    nodeEventsLayout->addWidget(nodeEventList);
+
+    //  ^  NodeEvents  ^--------------------------------------------------------------
+
+    QSet<QString> nodeActionIds;
+    nodeActionIds << "Highlight" << "Highlight With Adjacent Edges" << "Highlight With Adjacent Nodes" << "Open options" << "Show Tip" << "Delete";
+
+    QListView *nodeActionList = new QListView(window);
+    nodeActionList->setSelectionMode(QListView::SingleSelection);
+    QStandardItemModel *nodeActionsModel = new QStandardItemModel(window);
+    QSortFilterProxyModel *nodeActionsProxyModel = new QSortFilterProxyModel(window);
+    nodeActionsProxyModel->setSourceModel(nodeActionsModel);
+    nodeActionsProxyModel->setFilterKeyColumn(0);
+    nodeActionsProxyModel->sort(0, Qt::AscendingOrder);
+    nodeActionList->setModel(nodeActionsProxyModel);
+    int nodeActionTypesCount = 0;
+    for (const QString &typeId : nodeActionIds) {
+        auto item = new QStandardItem(typeId);
+        item->setEditable(false);
+        nodeActionsModel->setItem(nodeActionTypesCount++, item);
+    }
+    QLineEdit *nodeActionsSearchLine = new QLineEdit(window);
+    nodeActionsSearchLine->setClearButtonEnabled(true);
+    QObject::connect(nodeActionsSearchLine, &QLineEdit::textChanged, [nodeActionsProxyModel](const QString & text){
+        nodeActionsProxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
+    });
+    QGroupBox *nodeActionsGroupBox = new QGroupBox(tr("Actions"), window);
+    QVBoxLayout *nodeActionsGroupBoxLayout = new QVBoxLayout(window);
+    nodeActionsGroupBoxLayout->addWidget(nodeActionsSearchLine);
+    nodeActionsGroupBox->setLayout(nodeActionsGroupBoxLayout);
+    QVBoxLayout *nodeActionsLayout = new QVBoxLayout();
+    nodeActionsLayout->addWidget(nodeActionsGroupBox);
+    nodeActionsLayout->addWidget(nodeActionList);
+    //NodeActions ^---------------------------------------------------------------------
+
+    QTableWidget *nodeActiveList = new QTableWidget(window);
+    nodeActiveList->setColumnCount(2);
+    nodeActiveList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    QStringList nodeTableLabels;
+    nodeTableLabels << "Event" << "Action";
+    nodeActiveList->setHorizontalHeaderLabels(nodeTableLabels);
+    QHeaderView* nodeHeader = nodeActiveList->horizontalHeader();
+    nodeHeader->setSectionResizeMode(QHeaderView::Stretch);
+    nodeHeader->setHighlightSections(false);
+
+
+    QPushButton *addNodeButton = new QPushButton(tr("&Add"));
+    addNodeButton->setDefault(true);
+
+    QPushButton *removeNodeButton = new QPushButton(tr("&Remove"));
+    removeNodeButton->setDefault(true);
+
+    QPushButton *applyNodeButton = new QPushButton(tr("&Apply"));
+    applyNodeButton->setDefault(true);
+
+    QDialogButtonBox *nodeButtonBox = new QDialogButtonBox();
+    nodeButtonBox->addButton(addNodeButton, QDialogButtonBox::AcceptRole);
+    nodeButtonBox->addButton(removeNodeButton, QDialogButtonBox::RejectRole);
+    nodeButtonBox->addButton(applyNodeButton, QDialogButtonBox::HelpRole);
+    //не смог рассовать сигналы по кнопкам, сделел через стандартные роли :(
+
+    connect(nodeButtonBox, &QDialogButtonBox::accepted, [nodeEventList, nodeActionList, nodeActiveList](){
+        if (((nodeEventList->selectionModel()->hasSelection())&&(nodeActionList->selectionModel()->hasSelection())))
+        {
+            QString nodeEventName = nodeEventList->selectionModel()->selection().indexes()[0].data().toString();
+            QString nodeActionName = nodeActionList->selectionModel()->selection().indexes()[0].data().toString();
+            //connectingActions
+            QString nodeEventData = nodeEventName;
+            QString nodeActionData = nodeActionName;
+            if (!nodeActiveList->findItems(nodeEventData, Qt::MatchFixedString).isEmpty())
+                return;
+
+            int newRowIndex = nodeActiveList->rowCount();
+            nodeActiveList->insertRow(newRowIndex);
+            QTableWidgetItem *newEventItem = new QTableWidgetItem(nodeEventData);
+            QTableWidgetItem *newActionItem = new QTableWidgetItem(nodeActionData);
+            nodeActiveList->setItem(newRowIndex, 0, newEventItem);
+            nodeActiveList->setItem(newRowIndex, 1, newActionItem);
+        }
+    });
+    connect(nodeButtonBox, &QDialogButtonBox::rejected, [nodeActiveList](){
+        foreach (QTableWidgetItem *item, nodeActiveList->selectedItems())
+            nodeActiveList->removeRow(item->row());
+    });
+    connect(nodeButtonBox, &QDialogButtonBox::helpRequested, [window](){
+        window->close();
+    });
+
+    QGridLayout *edgesPageLayout = new QGridLayout();
+    edgesPageLayout->addLayout(edgesLayout, 0, 0);
+    edgesPageLayout->addLayout(eventsLayout, 0, 1);
+    edgesPageLayout->addLayout(actionsLayout, 0, 2);
+    edgesPageLayout->addWidget(activeList, 1, 0, 1, 3);
+    edgesPageLayout->addWidget(buttonBox, 2, 0, 1, 3);
+    QWidget *edgesPageWidget  = new QWidget(window);
+    edgesPageWidget->setLayout(edgesPageLayout);
+
+
+
+    QGridLayout *nodesPageLayout = new QGridLayout();
+    nodesPageLayout->addLayout(nodeEventsLayout, 0, 0);
+    nodesPageLayout->addLayout(nodeActionsLayout, 0, 1);
+    nodesPageLayout->addWidget(nodeActiveList, 1, 0, 1, 2);
+    nodesPageLayout->addWidget(nodeButtonBox, 2, 0, 1, 2);
+    QWidget *nodesPageWidget  = new QWidget(window);
+    nodesPageWidget->setLayout(nodesPageLayout);
+
+    QTabWidget *tabs = new QTabWidget(window);
+    //QString *edgesLabel = new QString("Edges");
+    tabs->addTab(edgesPageWidget, tr("Edges"));
+    tabs->addTab(nodesPageWidget, tr("Nodes"));
+
+    QGridLayout *mainGridLayout = new QGridLayout(window);
+
+    mainGridLayout->addWidget(tabs);
 
     window->setWindowTitle(tr("Edit events"));
+    window->setMinimumSize(QSize(400, 400));
     window->show();
 }
 
