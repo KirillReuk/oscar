@@ -22,7 +22,8 @@ SOURCES += \
     extensions/OLSAdaptiveNodeVisualizerSignalForwarder.cpp \
     extensions/OLSAdaptiveRelationVisualizerMaster.cpp \
     extensions/OLSAdaptiveRelationVisualizerParameters.cpp \
-    widgets/Shared/OLSHistoryRecord.cpp
+    widgets/Shared/OLSHistoryRecord.cpp \
+    widgets/Shared/OLSSettings.cpp
 
 HEADERS += \
     helpers/Singleton.h \
@@ -43,7 +44,8 @@ HEADERS += \
     extensions/OLSAdaptiveRelationVisualizerMaster.h \
     extensions/OLSAdaptiveRelationVisualizerParameters.h \
     widgets/Shared/OLSHistoryRecord.h \
-    widgets/Shared/OLSOntologyData.h
+    widgets/Shared/OLSOntologyData.h \
+    widgets/Shared/OLSSettings.h
 
 FORMS += \
     OLSAdaptiveNodeVisualizerForm.ui

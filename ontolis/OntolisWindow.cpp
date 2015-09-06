@@ -10,6 +10,7 @@
 #include <QDialogButtonBox>
 #include "IOHelpers.hpp"
 #include "../ontolis-lib/extensions/OLSAdaptiveRelationVisualizerMaster.h"
+#include "../ontolis-lib/widgets/Shared/OLSSettings.h"
 
 OntolisWindow::OntolisWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::OntolisWindow)
 {
@@ -41,6 +42,8 @@ OntolisWindow::OntolisWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::
 
   connect(ui->tabWidget, SIGNAL(currentChanged(int)), SLOT(currentTabChangedSlot(int)));
   connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &OntolisWindow::closeOntologySlot);
+
+  m_settings = new OLSSettings();
 
   setupMenu();
   setupConverters();
@@ -365,129 +368,140 @@ void OntolisWindow::editEventsSlot()
 
     QWidget *window = new QWidget();
 
-    QSet<QString> eventIds;
-    eventIds << "onClick" << "OnRightClick" << "onDoubleClick" << "onFocus" << "OnMouseEnter" << "OnMouseLeave";
+    QSet<QString> relationEventIds;
+    relationEventIds << "OnClick" << "OnRightClick" << "OnDoubleClick" << "OnFocus" << "OnMouseEnter" << "OnMouseLeave";
 
-    QListView *eventList = new QListView(window);
-    eventList->setSelectionMode(QListView::SingleSelection);
-    QStandardItemModel *eventsModel = new QStandardItemModel(window);
-    QSortFilterProxyModel *eventsProxyModel = new QSortFilterProxyModel(window);
-    eventsProxyModel->setSourceModel(eventsModel);
-    eventsProxyModel->setFilterKeyColumn(0);
-    eventsProxyModel->sort(0, Qt::AscendingOrder);
-    eventList->setModel(eventsProxyModel);
-    int eventTypesCount = 0;
-    for (const QString &typeId : eventIds) {
+    QListView *relationEventList = new QListView(window);
+    relationEventList->setSelectionMode(QListView::SingleSelection);
+    QStandardItemModel *relationEventsModel = new QStandardItemModel(window);
+    QSortFilterProxyModel *relationEventsProxyModel = new QSortFilterProxyModel(window);
+    relationEventsProxyModel->setSourceModel(relationEventsModel);
+    relationEventsProxyModel->setFilterKeyColumn(0);
+    relationEventsProxyModel->sort(0, Qt::AscendingOrder);
+    relationEventList->setModel(relationEventsProxyModel);
+    int relationEventTypesCount = 0;
+    for (const QString &typeId : relationEventIds) {
         auto item = new QStandardItem(typeId);
         item->setEditable(false);
-        eventsModel->setItem(eventTypesCount++, item);
+        relationEventsModel->setItem(relationEventTypesCount++, item);
     }
-    QLineEdit *eventsSearchLine = new QLineEdit(window);
-    eventsSearchLine->setClearButtonEnabled(true);
-    QObject::connect(eventsSearchLine, &QLineEdit::textChanged, [eventsProxyModel](const QString & text){
-        eventsProxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
+    QLineEdit *relationEventsSearchLine = new QLineEdit(window);
+    relationEventsSearchLine->setClearButtonEnabled(true);
+    QObject::connect(relationEventsSearchLine, &QLineEdit::textChanged, [relationEventsProxyModel](const QString & text){
+        relationEventsProxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
     });
-    QGroupBox *eventsGroupBox = new QGroupBox(tr("Events"), window);
-    QVBoxLayout *eventsGroupBoxLayout = new QVBoxLayout(window);
-    eventsGroupBoxLayout->addWidget(eventsSearchLine);
-    eventsGroupBox->setLayout(eventsGroupBoxLayout);
+    QGroupBox *relationEventsGroupBox = new QGroupBox(tr("Events"), window);
+    QVBoxLayout *relationEventsGroupBoxLayout = new QVBoxLayout(window);
+    relationEventsGroupBoxLayout->addWidget(relationEventsSearchLine);
+    relationEventsGroupBox->setLayout(relationEventsGroupBoxLayout);
 
-    QVBoxLayout *eventsLayout = new QVBoxLayout();
-    eventsLayout->addWidget(eventsGroupBox);
-    eventsLayout->addWidget(eventList);
+    QVBoxLayout *relationEventsLayout = new QVBoxLayout();
+    relationEventsLayout->addWidget(relationEventsGroupBox);
+    relationEventsLayout->addWidget(relationEventList);
 
     //  ^  events  ^--------------------------------------------------------------
 
-    QSet<QString> actionIds;
-    actionIds << "Highlight" << "Highlight With Adjacent" << "Open options" << "Show Tip" << "Delete";
+    QSet<QString> relationActionIds;
+    relationActionIds << "Highlight" << "Highlight With Adjacent" << "Open Options" << "Show Tip" << "Delete";
 
-    QListView *actionList = new QListView(window);
-    actionList->setSelectionMode(QListView::SingleSelection);
-    QStandardItemModel *actionsModel = new QStandardItemModel(window);
-    QSortFilterProxyModel *actionsProxyModel = new QSortFilterProxyModel(window);
-    actionsProxyModel->setSourceModel(actionsModel);
-    actionsProxyModel->setFilterKeyColumn(0);
-    actionsProxyModel->sort(0, Qt::AscendingOrder);
-    actionList->setModel(actionsProxyModel);
-    int actionTypesCount = 0;
-    for (const QString &typeId : actionIds) {
+    QListView *relationActionList = new QListView(window);
+    relationActionList->setSelectionMode(QListView::SingleSelection);
+    QStandardItemModel *relationActionsModel = new QStandardItemModel(window);
+    QSortFilterProxyModel *relationActionsProxyModel = new QSortFilterProxyModel(window);
+    relationActionsProxyModel->setSourceModel(relationActionsModel);
+    relationActionsProxyModel->setFilterKeyColumn(0);
+    relationActionsProxyModel->sort(0, Qt::AscendingOrder);
+    relationActionList->setModel(relationActionsProxyModel);
+    int relationActionTypesCount = 0;
+    for (const QString &typeId : relationActionIds) {
         auto item = new QStandardItem(typeId);
         item->setEditable(false);
-        actionsModel->setItem(actionTypesCount++, item);
+        relationActionsModel->setItem(relationActionTypesCount++, item);
     }
-    QLineEdit *actionsSearchLine = new QLineEdit(window);
-    actionsSearchLine->setClearButtonEnabled(true);
-    QObject::connect(actionsSearchLine, &QLineEdit::textChanged, [actionsProxyModel](const QString & text){
-        actionsProxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
+    QLineEdit *relationActionsSearchLine = new QLineEdit(window);
+    relationActionsSearchLine->setClearButtonEnabled(true);
+    QObject::connect(relationActionsSearchLine, &QLineEdit::textChanged, [relationActionsProxyModel](const QString & text){
+        relationActionsProxyModel->setFilterRegExp(QRegExp(text.trimmed(), Qt::CaseInsensitive, QRegExp::FixedString));
     });
-    QGroupBox *actionsGroupBox = new QGroupBox(tr("Actions"), window);
-    QVBoxLayout *actionsGroupBoxLayout = new QVBoxLayout(window);
-    actionsGroupBoxLayout->addWidget(actionsSearchLine);
-    actionsGroupBox->setLayout(actionsGroupBoxLayout);
-    QVBoxLayout *actionsLayout = new QVBoxLayout();
-    actionsLayout->addWidget(actionsGroupBox);
-    actionsLayout->addWidget(actionList);
+    QGroupBox *relationActionsGroupBox = new QGroupBox(tr("Actions"), window);
+    QVBoxLayout *relationActionsGroupBoxLayout = new QVBoxLayout(window);
+    relationActionsGroupBoxLayout->addWidget(relationActionsSearchLine);
+    relationActionsGroupBox->setLayout(relationActionsGroupBoxLayout);
+    QVBoxLayout *relationActionsLayout = new QVBoxLayout();
+    relationActionsLayout->addWidget(relationActionsGroupBox);
+    relationActionsLayout->addWidget(relationActionList);
     //actions ^---------------------------------------------------------------------
 
-    QTableWidget *activeList = new QTableWidget(window);
-    activeList->setColumnCount(2);
-    activeList->setSelectionBehavior(QAbstractItemView::SelectRows);
-    QStringList tableLabels;
-    tableLabels << "Event" << "Action";
-    activeList->setHorizontalHeaderLabels(tableLabels);
-    QHeaderView* header = activeList->horizontalHeader();
-    header->setSectionResizeMode(QHeaderView::Stretch);
-    header->setHighlightSections(false);
+    QTableWidget *activeRelationEventsList = new QTableWidget(window);
+    QTableWidget *activeNodeEventList = new QTableWidget(window);
+
+    activeRelationEventsList->setColumnCount(2);
+    activeRelationEventsList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    QStringList relationTableLabels;
+    relationTableLabels << "Event" << "Action";
+    activeRelationEventsList->setHorizontalHeaderLabels(relationTableLabels);
+    QHeaderView* relationHeader = activeRelationEventsList->horizontalHeader();
+    relationHeader->setSectionResizeMode(QHeaderView::Stretch);
+    relationHeader->setHighlightSections(false);
+
+    QMap<QString, QString> defaultRelationEventMap = m_settings->getRelationEvents();
+    QMap<QString, QString>::iterator eventIter;
+    for (eventIter = defaultRelationEventMap.begin(); eventIter != defaultRelationEventMap.end(); ++eventIter)
+        populateEventList(eventIter.key(),eventIter.value(),activeRelationEventsList);
 
 
-    QPushButton *addButton = new QPushButton(tr("&Add"));
-    addButton->setDefault(true);
+    QPushButton *addRelationButton = new QPushButton(tr("&Add"));
+    addRelationButton->setDefault(true);
 
-    QPushButton *removeButton = new QPushButton(tr("&Remove"));
-    removeButton->setDefault(true);
+    QPushButton *removeRelationButton = new QPushButton(tr("&Remove"));
+    removeRelationButton->setDefault(true);
 
-    QPushButton *applyButton = new QPushButton(tr("&Apply"));
-    applyButton->setDefault(true);
+    QPushButton *applyRelationButton = new QPushButton(tr("&Apply"));
+    applyRelationButton->setDefault(true);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox();
-    buttonBox->addButton(addButton, QDialogButtonBox::AcceptRole);
-    buttonBox->addButton(removeButton, QDialogButtonBox::RejectRole);
-    buttonBox->addButton(applyButton, QDialogButtonBox::HelpRole);
+    QDialogButtonBox *relationButtonBox = new QDialogButtonBox();
+    relationButtonBox->addButton(addRelationButton, QDialogButtonBox::AcceptRole);
+    relationButtonBox->addButton(removeRelationButton, QDialogButtonBox::RejectRole);
+    relationButtonBox->addButton(applyRelationButton, QDialogButtonBox::HelpRole);
     //не смог рассовать сигналы по кнопкам, сделел через стандартные роли :(
 
-    connect(buttonBox, &QDialogButtonBox::accepted, [eventList, actionList, activeList](){
-        if ((eventList->selectionModel()->hasSelection())&&(actionList->selectionModel()->hasSelection()))
+    connect(relationButtonBox, &QDialogButtonBox::accepted, [relationEventList, relationActionList, activeRelationEventsList, this](){
+        //add
+        if ((relationEventList->selectionModel()->hasSelection())&&(relationActionList->selectionModel()->hasSelection()))
         {
-            QString eventName = eventList->selectionModel()->selection().indexes()[0].data().toString();
-            QString actionName = actionList->selectionModel()->selection().indexes()[0].data().toString();
-            //connectingActions
+            QString eventName = relationEventList->selectionModel()->selection().indexes()[0].data().toString();
+            QString actionName = relationActionList->selectionModel()->selection().indexes()[0].data().toString();
 
             QString eventData = eventName;
             QString actionData = actionName;
-            if (!activeList->findItems(eventData, Qt::MatchFixedString).isEmpty())
+            if (!activeRelationEventsList->findItems(eventData, Qt::MatchFixedString).isEmpty())
                 return;
 
-            int newRowIndex = activeList->rowCount();
-            activeList->insertRow(newRowIndex);
-            QTableWidgetItem *newEventItem = new QTableWidgetItem(eventData);
-            QTableWidgetItem *newActionItem = new QTableWidgetItem(actionData);
-            activeList->setItem(newRowIndex, 0, newEventItem);
-            activeList->setItem(newRowIndex, 1, newActionItem);
+            populateEventList(eventData, actionData, activeRelationEventsList);
         }
     });
-    connect(buttonBox, &QDialogButtonBox::rejected, [activeList](){
-        foreach (QTableWidgetItem *item, activeList->selectedItems())
-            activeList->removeRow(item->row());
+    connect(relationButtonBox, &QDialogButtonBox::rejected, [activeRelationEventsList](){
+        //delete
+        foreach (QTableWidgetItem *item, activeRelationEventsList->selectedItems())
+            activeRelationEventsList->removeRow(item->row());
     });
-    connect(buttonBox, &QDialogButtonBox::helpRequested, [window](){
+    connect(relationButtonBox, &QDialogButtonBox::helpRequested, [window, activeRelationEventsList, activeNodeEventList, this](){
+        //apply
+        QMap<QString, QString> newNodeEvents, newRelationEvents;
+        for (int i = 0; i < activeRelationEventsList->rowCount(); i++)
+            newRelationEvents[activeRelationEventsList->item(i,0)->text()] = activeRelationEventsList->item(i,1)->text();
+        for (int i = 0; i < activeNodeEventList->rowCount(); i++)
+            newNodeEvents[activeNodeEventList->item(i,0)->text()] = activeNodeEventList->item(i,1)->text();
+
+        m_settings->changeNodeEvents(newNodeEvents);
+        m_settings->changeRelationEvents(newRelationEvents);
+
         window->close();
     });
-    //connect(this, SIGNAL(clicked(addButton)), SLOT(dialogButtonClicked(buttonBox->buttonRole(addButton))));
 
-
-
+//------------------------------------------------------------------------------------------
     QSet<QString> nodeEventIds;
-    nodeEventIds << "onClick" << "OnRightClick" << "onDoubleClick" << "onFocus" << "OnMouseEnter" << "OnMouseLeave";
+    nodeEventIds << "OnClick" << "OnRightClick" << "OnDoubleClick" << "OnFocus" << "OnMouseEnter" << "OnMouseLeave";
 
     QListView *nodeEventList = new QListView(window);
     nodeEventList->setSelectionMode(QListView::SingleSelection);
@@ -550,15 +564,20 @@ void OntolisWindow::editEventsSlot()
     nodeActionsLayout->addWidget(nodeActionList);
     //NodeActions ^---------------------------------------------------------------------
 
-    QTableWidget *nodeActiveList = new QTableWidget(window);
-    nodeActiveList->setColumnCount(2);
-    nodeActiveList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    //QTableWidget *nodeActiveList = new QTableWidget(window);
+    activeNodeEventList->setColumnCount(2);
+    activeNodeEventList->setSelectionBehavior(QAbstractItemView::SelectRows);
     QStringList nodeTableLabels;
     nodeTableLabels << "Event" << "Action";
-    nodeActiveList->setHorizontalHeaderLabels(nodeTableLabels);
-    QHeaderView* nodeHeader = nodeActiveList->horizontalHeader();
+    activeNodeEventList->setHorizontalHeaderLabels(nodeTableLabels);
+    QHeaderView* nodeHeader = activeNodeEventList->horizontalHeader();
     nodeHeader->setSectionResizeMode(QHeaderView::Stretch);
     nodeHeader->setHighlightSections(false);
+
+    QMap<QString, QString> defaultNodeEventMap = m_settings->getNodeEvents();
+    QMap<QString, QString>::iterator i;
+    for (i = defaultNodeEventMap.begin(); i != defaultNodeEventMap.end(); ++i)
+        populateEventList(i.key(),i.value(),activeNodeEventList);
 
 
     QPushButton *addNodeButton = new QPushButton(tr("&Add"));
@@ -576,53 +595,56 @@ void OntolisWindow::editEventsSlot()
     nodeButtonBox->addButton(applyNodeButton, QDialogButtonBox::HelpRole);
     //не смог рассовать сигналы по кнопкам, сделел через стандартные роли :(
 
-    connect(nodeButtonBox, &QDialogButtonBox::accepted, [nodeEventList, nodeActionList, nodeActiveList](){
+    connect(nodeButtonBox, &QDialogButtonBox::accepted, [nodeEventList, nodeActionList, activeNodeEventList, this](){
         if (((nodeEventList->selectionModel()->hasSelection())&&(nodeActionList->selectionModel()->hasSelection())))
         {
             QString nodeEventName = nodeEventList->selectionModel()->selection().indexes()[0].data().toString();
             QString nodeActionName = nodeActionList->selectionModel()->selection().indexes()[0].data().toString();
-            //connectingActions
+
             QString nodeEventData = nodeEventName;
             QString nodeActionData = nodeActionName;
-            if (!nodeActiveList->findItems(nodeEventData, Qt::MatchFixedString).isEmpty())
+            if (!activeNodeEventList->findItems(nodeEventData, Qt::MatchFixedString).isEmpty())
                 return;
-
-            int newRowIndex = nodeActiveList->rowCount();
-            nodeActiveList->insertRow(newRowIndex);
-            QTableWidgetItem *newEventItem = new QTableWidgetItem(nodeEventData);
-            QTableWidgetItem *newActionItem = new QTableWidgetItem(nodeActionData);
-            nodeActiveList->setItem(newRowIndex, 0, newEventItem);
-            nodeActiveList->setItem(newRowIndex, 1, newActionItem);
+            populateEventList(nodeEventData, nodeActionData, activeNodeEventList);
         }
     });
-    connect(nodeButtonBox, &QDialogButtonBox::rejected, [nodeActiveList](){
-        foreach (QTableWidgetItem *item, nodeActiveList->selectedItems())
-            nodeActiveList->removeRow(item->row());
+    connect(nodeButtonBox, &QDialogButtonBox::rejected, [activeNodeEventList](){
+        foreach (QTableWidgetItem *item, activeNodeEventList->selectedItems())
+            activeNodeEventList->removeRow(item->row());
     });
-    connect(nodeButtonBox, &QDialogButtonBox::helpRequested, [window](){
+    connect(nodeButtonBox, &QDialogButtonBox::helpRequested, [window, activeRelationEventsList, activeNodeEventList, this](){
+        //connecting actions
+
+        QMap<QString, QString> newNodeEvents, newRelationEvents;
+        for (int i = 0; i < activeRelationEventsList->rowCount(); i++)
+            newRelationEvents[activeRelationEventsList->item(i,0)->text()] = activeRelationEventsList->item(i,1)->text();
+        for (int i = 0; i < activeNodeEventList->rowCount(); i++)
+            newNodeEvents[activeNodeEventList->item(i,0)->text()] = activeNodeEventList->item(i,1)->text();
+
+        m_settings->changeNodeEvents(newNodeEvents);
+        m_settings->changeRelationEvents(newRelationEvents);
+
         window->close();
     });
 
     QGridLayout *edgesPageLayout = new QGridLayout();
     //edgesPageLayout->addLayout(edgesLayout, 0, 0);
-    edgesPageLayout->addLayout(eventsLayout, 0, 0);
-    edgesPageLayout->addLayout(actionsLayout, 0, 1);
-    edgesPageLayout->addWidget(activeList, 1, 0, 1, 2);
-    edgesPageLayout->addWidget(buttonBox, 2, 0, 1, 2);
+    edgesPageLayout->addLayout(relationEventsLayout, 0, 0);
+    edgesPageLayout->addLayout(relationActionsLayout, 0, 1);
+    edgesPageLayout->addWidget(activeRelationEventsList, 1, 0, 1, 2);
+    edgesPageLayout->addWidget(relationButtonBox, 2, 0, 1, 2);
     QWidget *edgesPageWidget  = new QWidget(window);
     edgesPageWidget->setLayout(edgesPageLayout);
-
 
     QGridLayout *nodesPageLayout = new QGridLayout();
     nodesPageLayout->addLayout(nodeEventsLayout, 0, 0);
     nodesPageLayout->addLayout(nodeActionsLayout, 0, 1);
-    nodesPageLayout->addWidget(nodeActiveList, 1, 0, 1, 2);
+    nodesPageLayout->addWidget(activeNodeEventList, 1, 0, 1, 2);
     nodesPageLayout->addWidget(nodeButtonBox, 2, 0, 1, 2);
     QWidget *nodesPageWidget  = new QWidget(window);
     nodesPageWidget->setLayout(nodesPageLayout);
 
     QTabWidget *tabs = new QTabWidget(window);
-    //QString *edgesLabel = new QString("Edges");
     tabs->addTab(edgesPageWidget, tr("Edges"));
     tabs->addTab(nodesPageWidget, tr("Nodes"));
 
@@ -1161,4 +1183,14 @@ void OntolisWindow::moveToEndSlot() {
 
 //    ui->tabWidget->setCurrentIndex(1);
 //  }
+}
+
+void OntolisWindow::populateEventList(QString first, QString second, QTableWidget *tableWidget)
+{
+    int newRowIndex = tableWidget->rowCount();
+    tableWidget->insertRow(newRowIndex);
+    QTableWidgetItem *newFirstItem = new QTableWidgetItem(first);
+    QTableWidgetItem *newSecondItem = new QTableWidgetItem(second);
+    tableWidget->setItem(newRowIndex, 0, newFirstItem);
+    tableWidget->setItem(newRowIndex, 1, newSecondItem);
 }

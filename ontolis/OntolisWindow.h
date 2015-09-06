@@ -8,6 +8,7 @@
 #include "widgets/OntologyTree/OLSOntologyTreeViewController.h"
 #include "widgets/OntologyPallete/OLSOntologyPalleteWidget.h"
 #include "widgets/ProjectTree/OLSProject.h"
+#include "widgets/Shared/OLSSettings.h"
 
 #include "extensions/OLSAdaptiveNodeVisualizerMaster.h"
 
@@ -34,6 +35,8 @@ class OntolisWindow : public QMainWindow {
     OLSOntologyPalleteWidget *m_palleteWidget;
 
     OLSOntologyTreeViewController *m_ontologyTreeViewController;
+
+    OLSSettings *m_settings;
 
     long m_currentSnapshotIndex;
 
@@ -97,6 +100,7 @@ class OntolisWindow : public QMainWindow {
     void editRelationVisualizationParametersSlot(RelationTypeId typeId);
 
     void applyGraphicSettingsSlot(int defaultIndex = -1);
+    void populateEventList(QString first, QString second, QTableWidget *tableWidget);
 
   signals:
     void itemsSelectedSignal(const QSet<long> ids);
