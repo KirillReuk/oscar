@@ -24,6 +24,8 @@ OLSOntologyGraphRelationItem::OLSOntologyGraphRelationItem(
   setFlag(ItemIsSelectable);
 
   setData(OLSOntologyGraphItemDataKey::kType, OLSOntologyGraphItemType::kRelation);
+
+  setAcceptHoverEvents(true);
 }
 
 OLSOntologyGraphRelationItem::~OLSOntologyGraphRelationItem() {
@@ -147,7 +149,6 @@ void OLSOntologyGraphRelationItem::relationEventHandler(QString eventName)
     QMap<QString, QString> eventList = getEvents();
     QString eventToExecute = eventList[eventName];
 
-
     if (eventToExecute == "Highlight")
         setSelected(true);
     else
@@ -165,9 +166,8 @@ void OLSOntologyGraphRelationItem::relationEventHandler(QString eventName)
 void OLSOntologyGraphRelationItem::highlightWithAdjacent(){
     this->sourceNode()->setSelected(true);
     this->destinationNode()->setSelected(true);
+    this->setSelected(true);
 }
-
-
 
 void OLSOntologyGraphRelationItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {

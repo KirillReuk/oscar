@@ -29,6 +29,8 @@ OLSOntologyGraphNodeItem::OLSOntologyGraphNodeItem(OLSOntologyDataController *da
   setBrush(brush);
 
   setData(OLSOntologyGraphItemDataKey::kType, OLSOntologyGraphItemType::kNode);
+
+  setAcceptHoverEvents(true);
 }
 
 OLSOntologyGraphNodeItem::~OLSOntologyGraphNodeItem() {
@@ -163,6 +165,7 @@ void OLSOntologyGraphNodeItem::nodeEventHandler(QString eventName)
 void OLSOntologyGraphNodeItem::highlightWithAdjacentRelations(){
     foreach (OLSOntologyGraphRelationItem* item, m_relations)
         item->setSelected(true);
+    this->setSelected(true);
 }
 
 void OLSOntologyGraphNodeItem::highlightWithAdjacentNodes(){
@@ -170,6 +173,7 @@ void OLSOntologyGraphNodeItem::highlightWithAdjacentNodes(){
         item->sourceNode()->setSelected(true);
         item->destinationNode()->setSelected(true);
     }
+    this->setSelected(true);
 }
 
 
