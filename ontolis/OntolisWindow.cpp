@@ -370,7 +370,7 @@ void OntolisWindow::editEventsSlot()
     QWidget *window = new QWidget();
 
     QSet<QString> relationEventIds;
-    relationEventIds << "OnClick" << "OnRightClick" << "OnDoubleClick" << "OnFocus" << "OnMouseEnter" << "OnMouseLeave";
+    relationEventIds << "OnClick" << "OnRightClick" << "OnDoubleClick" << "OnMouseEnter" << "OnMouseLeave";
 
     QListView *relationEventList = new QListView(window);
     relationEventList->setSelectionMode(QListView::SingleSelection);
@@ -403,7 +403,7 @@ void OntolisWindow::editEventsSlot()
     //  ^  events  ^--------------------------------------------------------------
 
     QSet<QString> relationActionIds;
-    relationActionIds << "Highlight" << "Highlight With Adjacent" << "Open Options" << "Show Tip" << "Delete";
+    relationActionIds << "Highlight" << "Highlight With Adjacent" << "Open Options" << "Show Tip" << "Delete" << "De-Highlight";
 
     QListView *relationActionList = new QListView(window);
     relationActionList->setSelectionMode(QListView::SingleSelection);
@@ -513,7 +513,7 @@ void OntolisWindow::editEventsSlot()
 
 //------------------------------------------------------------------------------------------
     QSet<QString> nodeEventIds;
-    nodeEventIds << "OnClick" << "OnRightClick" << "OnDoubleClick" << "OnFocus" << "OnMouseEnter" << "OnMouseLeave";
+    nodeEventIds << "OnClick" << "OnRightClick" << "OnDoubleClick" << "OnMouseEnter" << "OnMouseLeave";
 
     QListView *nodeEventList = new QListView(window);
     nodeEventList->setSelectionMode(QListView::SingleSelection);
@@ -546,7 +546,7 @@ void OntolisWindow::editEventsSlot()
     //  ^  NodeEvents  ^--------------------------------------------------------------
 
     QSet<QString> nodeActionIds;
-    nodeActionIds << "Highlight" << "Highlight With Adjacent Edges" << "Highlight With Adjacent Nodes" << "Open options" << "Show Tip" << "Delete";
+    nodeActionIds << "Highlight" << "Highlight With Adjacent Edges" << "Highlight With Adjacent Nodes" << "Open options" << "Show Tip" << "Delete" << "De-Highlight";
 
     QListView *nodeActionList = new QListView(window);
     nodeActionList->setSelectionMode(QListView::SingleSelection);

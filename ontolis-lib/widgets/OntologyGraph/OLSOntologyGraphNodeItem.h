@@ -26,7 +26,7 @@ class OLSOntologyGraphNodeItem : public QObject, public QGraphicsRectItem, publi
     static QMap<QString, QString> m_nodeEvents;
 
     //events and stuff
-    void nodeEventHandler(QString eventName);
+    void nodeEventHandler(QString eventName, QPoint point);
     void highlightWithAdjacentNodes();
     void highlightWithAdjacentRelations();
 

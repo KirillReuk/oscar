@@ -8,6 +8,7 @@
 #include <QFont>
 #include <QFontMetrics>
 #include <QGraphicsScene>
+#include <QToolTip>
 
 #include <math.h>
 
@@ -141,7 +142,7 @@ void OLSOntologyGraphRelationItem::attributesChanged() {
   }
 }
 
-void OLSOntologyGraphRelationItem::relationEventHandler(QString eventName)
+void OLSOntologyGraphRelationItem::relationEventHandler(QString eventName, QPoint point)
 {
     if (getEvents().find(eventName)==getEvents().end())
         return;
@@ -158,9 +159,17 @@ void OLSOntologyGraphRelationItem::relationEventHandler(QString eventName)
             if (eventToExecute == "Open options"){
             } else
                 if (eventToExecute == "Show Tip"){
+                    QString toolTipMessage = "From: ";
+                    toolTipMessage += m_sourceNode->name();
+                    toolTipMessage += " To: ";
+                    toolTipMessage += m_destinationNode->name();
+                    QToolTip::showText(point, toolTipMessage);
                 } else
                     if (eventToExecute == "Delete"){
-                    }
+                    } else
+                        if (eventToExecute == "De-Highlight"){
+                            setSelected(false);
+                        }
 }
 
 void OLSOntologyGraphRelationItem::highlightWithAdjacent(){
@@ -171,12 +180,13 @@ void OLSOntologyGraphRelationItem::highlightWithAdjacent(){
 
 void OLSOntologyGraphRelationItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    QPoint point((int)event->screenPos().x(), (int)event->screenPos().y());
     if (event->button() == Qt::LeftButton) {
-      relationEventHandler("OnClick");
+      relationEventHandler("OnClick", point);
       event->accept();
       return;
     } else if (event->button() == Qt::RightButton) {
-        relationEventHandler("OnRightClick");
+        relationEventHandler("OnRightClick", point);
         event->accept();
         return;
       }
@@ -185,22 +195,25 @@ void OLSOntologyGraphRelationItem::mousePressEvent(QGraphicsSceneMouseEvent *eve
 
 void OLSOntologyGraphRelationItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
+    QPoint point((int)event->screenPos().x(), (int)event->screenPos().y());
     //emit nodeItemDoubleClickSignal(this->id(), event->buttons());
     if (event->button() == Qt::LeftButton) {
-      relationEventHandler("OnDoubleClick");
+      relationEventHandler("OnDoubleClick", point);
       event->accept();
       return;
     }
 }
 
 void OLSOntologyGraphRelationItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
-    relationEventHandler("OnMouseEnter");
+    QPoint point((int)event->screenPos().x(), (int)event->screenPos().y());
+    relationEventHandler("OnMouseEnter", point);
     event->accept();
     return;
 }
 
 void OLSOntologyGraphRelationItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
-    relationEventHandler("OnMouseLeave");
+    QPoint point((int)event->screenPos().x(), (int)event->screenPos().y());
+    relationEventHandler("OnMouseLeave", point);
     event->accept();
     return;
 }

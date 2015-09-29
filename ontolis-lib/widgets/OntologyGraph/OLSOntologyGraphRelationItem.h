@@ -22,7 +22,7 @@ class OLSOntologyGraphRelationItem : public QGraphicsLineItem, public OLSOntolog
     static QMap<QString, QString> m_relationEvents;
 
     //events and stuff
-    void relationEventHandler(QString eventName);
+    void relationEventHandler(QString eventName, QPoint point);
     void highlightWithAdjacent();
 
   protected:
