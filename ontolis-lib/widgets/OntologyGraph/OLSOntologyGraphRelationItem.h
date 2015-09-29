@@ -19,11 +19,19 @@ class OLSOntologyGraphRelationItem : public QGraphicsLineItem, public OLSOntolog
 
     double m_width;
     QVector<qreal> m_dashPattern;
+    static QMap<QString, QString> m_relationEvents;
+
+    //events and stuff
+    void relationEventHandler(QString eventName);
+    void highlightWithAdjacent();
 
   protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
 
     virtual void attributesChanged() override;
     virtual OLSOntologyData *relatedModel() override;
@@ -44,6 +52,9 @@ class OLSOntologyGraphRelationItem : public QGraphicsLineItem, public OLSOntolog
 
     virtual void setDestinationNode(OLSOntologyGraphNodeItem *node);
     virtual OLSOntologyGraphNodeItem *destinationNode() const;
+
+    static void setEvents(QMap<QString, QString> &);
+    static QMap<QString, QString> getEvents();
 };
 
 #endif // OLSONTOLOGYGRAPHRELATIONITEM_H

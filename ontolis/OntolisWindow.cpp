@@ -44,6 +44,10 @@ OntolisWindow::OntolisWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::
   connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &OntolisWindow::closeOntologySlot);
 
   m_settings = new OLSSettings();
+  QMap<QString, QString> nodeEventMap = m_settings->getNodeEvents();
+  OLSOntologyGraphNodeItem::setEvents(nodeEventMap);
+  QMap<QString, QString> relationEventMap = m_settings->getRelationEvents();
+  OLSOntologyGraphRelationItem::setEvents(relationEventMap);
 
   setupMenu();
   setupConverters();
@@ -363,9 +367,6 @@ void OntolisWindow::editRelationVisualizationParametersSlot(RelationTypeId typeI
 
 void OntolisWindow::editEventsSlot()
 {
-    if (ui->tabWidget->count() == 0)
-        return; //если онтологий не открыто, выйти
-
     QWidget *window = new QWidget();
 
     QSet<QString> relationEventIds;
@@ -482,8 +483,16 @@ void OntolisWindow::editEventsSlot()
     });
     connect(relationButtonBox, &QDialogButtonBox::rejected, [activeRelationEventsList](){
         //delete
-        foreach (QTableWidgetItem *item, activeRelationEventsList->selectedItems())
+        /*foreach (QTableWidgetItem *item, activeRelationEventsList->selectedItems())
             activeRelationEventsList->removeRow(item->row());
+        */
+        QList<QTableWidgetItem*> selected_rows = activeRelationEventsList->selectedItems();
+        while( !selected_rows.isEmpty() )
+        {
+            QTableWidgetItem *item = selected_rows.at(0);
+            activeRelationEventsList->removeRow(item->row());
+            selected_rows = activeRelationEventsList->selectedItems();
+        }
     });
     connect(relationButtonBox, &QDialogButtonBox::helpRequested, [window, activeRelationEventsList, activeNodeEventList, this](){
         //apply
@@ -493,8 +502,11 @@ void OntolisWindow::editEventsSlot()
         for (int i = 0; i < activeNodeEventList->rowCount(); i++)
             newNodeEvents[activeNodeEventList->item(i,0)->text()] = activeNodeEventList->item(i,1)->text();
 
-        m_settings->changeNodeEvents(newNodeEvents);
-        m_settings->changeRelationEvents(newRelationEvents);
+        m_settings->setNodeEvents(newNodeEvents);
+        m_settings->setRelationEvents(newRelationEvents);
+
+        OLSOntologyGraphNodeItem::setEvents(newNodeEvents);
+        OLSOntologyGraphRelationItem::setEvents(newRelationEvents);
 
         window->close();
     });
@@ -609,8 +621,13 @@ void OntolisWindow::editEventsSlot()
         }
     });
     connect(nodeButtonBox, &QDialogButtonBox::rejected, [activeNodeEventList](){
-        foreach (QTableWidgetItem *item, activeNodeEventList->selectedItems())
+        QList<QTableWidgetItem*> selected_rows = activeNodeEventList->selectedItems();
+        while( !selected_rows.isEmpty() )
+        {
+            QTableWidgetItem *item = selected_rows.at(0);
             activeNodeEventList->removeRow(item->row());
+            selected_rows = activeNodeEventList->selectedItems();
+        }
     });
     connect(nodeButtonBox, &QDialogButtonBox::helpRequested, [window, activeRelationEventsList, activeNodeEventList, this](){
         //connecting actions
@@ -621,8 +638,11 @@ void OntolisWindow::editEventsSlot()
         for (int i = 0; i < activeNodeEventList->rowCount(); i++)
             newNodeEvents[activeNodeEventList->item(i,0)->text()] = activeNodeEventList->item(i,1)->text();
 
-        m_settings->changeNodeEvents(newNodeEvents);
-        m_settings->changeRelationEvents(newRelationEvents);
+        m_settings->setNodeEvents(newNodeEvents);
+        m_settings->setRelationEvents(newRelationEvents);
+
+        OLSOntologyGraphNodeItem::setEvents(newNodeEvents);
+        OLSOntologyGraphRelationItem::setEvents(newRelationEvents);
 
         window->close();
     });

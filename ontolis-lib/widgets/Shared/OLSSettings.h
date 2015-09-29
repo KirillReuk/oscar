@@ -17,8 +17,8 @@ class OLSSettings
         QMap<QString, QString> getNodeEvents();
         QMap<QString, QString> getRelationEvents();
 
-        void changeNodeEvents(QMap<QString, QString> &);
-        void changeRelationEvents(QMap<QString, QString> &);
+        void setNodeEvents(QMap<QString, QString> &);
+        void setRelationEvents(QMap<QString, QString> &);
 
 };
 

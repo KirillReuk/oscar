@@ -1,4 +1,5 @@
 #include "OLSSettings.h"
+#include "../OntologyGraph/OLSOntologyGraphNodeItem.h"
 
 OLSSettings::OLSSettings()
 {
@@ -24,12 +25,13 @@ QMap<QString, QString> OLSSettings::getRelationEvents()
     return m_relationEvents;
 }
 
-void OLSSettings::changeNodeEvents(QMap<QString, QString> &newEvents)
+void OLSSettings::setNodeEvents(QMap<QString, QString> &newEvents)
 {
     m_nodeEvents = newEvents;
+    OLSOntologyGraphNodeItem::setEvents(newEvents);
 }
 
-void OLSSettings::changeRelationEvents(QMap<QString, QString> &newEvents)
+void OLSSettings::setRelationEvents(QMap<QString, QString> &newEvents)
 {
     m_relationEvents = newEvents;
 }

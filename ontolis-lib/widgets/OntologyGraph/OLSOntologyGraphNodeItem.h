@@ -7,6 +7,8 @@
 #include "OLSOntologyGraphItemType.h"
 #include "OLSOntologyGraphElement.h"
 
+
+
 class OLSOntologyGraphRelationItem;
 
 enum class ExpandState { NotExpandable, IsExpanded, NotExpanded };
@@ -21,10 +23,19 @@ class OLSOntologyGraphNodeItem : public QObject, public QGraphicsRectItem, publi
     QString m_shapeName;
     QRectF m_textRect;
     ExpandState m_expandState;
+    static QMap<QString, QString> m_nodeEvents;
+
+    //events and stuff
+    void nodeEventHandler(QString eventName);
+    void highlightWithAdjacentNodes();
+    void highlightWithAdjacentRelations();
 
   protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
     virtual void attributesChanged() override;
@@ -47,6 +58,9 @@ class OLSOntologyGraphNodeItem : public QObject, public QGraphicsRectItem, publi
     QList<OLSOntologyGraphRelationItem *> getOutgoingRelationsByName(QString name);
     QList<OLSOntologyGraphRelationItem *> getOutgoingRelationsByName(QString nodeNamespace, QString name);
     QList<OLSOntologyGraphRelationItem *> getOutgoingRelationsByNameBeginning(QString nodeNamespace, QString neededBeginning);
+
+    static void setEvents(QMap<QString, QString> &);
+    static QMap<QString, QString> getEvents();
 
   signals:
     void nodeItemPositionChangedSignal(long id, const QPointF &newPosition);

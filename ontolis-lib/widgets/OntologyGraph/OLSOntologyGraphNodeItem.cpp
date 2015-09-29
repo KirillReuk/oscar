@@ -133,17 +133,86 @@ QList<OLSOntologyGraphRelationItem *> OLSOntologyGraphNodeItem::getOutgoingRelat
     return result;
 }
 
+
+void OLSOntologyGraphNodeItem::nodeEventHandler(QString eventName)
+{
+    if (OLSOntologyGraphNodeItem::getEvents().find(eventName)==OLSOntologyGraphNodeItem::getEvents().end())
+        return;
+
+    QMap<QString, QString> eventList = OLSOntologyGraphNodeItem::getEvents();
+    QString eventToExecute = eventList[eventName];
+
+
+    if (eventToExecute == "Highlight")
+        setSelected(true);
+    else
+        if (eventToExecute == "Highlight With Adjacent Edges")
+            highlightWithAdjacentRelations();
+        else
+            if (eventToExecute == "Highlight With Adjacent Nodes")
+                highlightWithAdjacentNodes();
+            else
+                if (eventToExecute == "Open options"){
+                } else
+                    if (eventToExecute == "Show Tip"){
+                    } else
+                        if (eventToExecute == "Delete"){
+                        }
+}
+
+void OLSOntologyGraphNodeItem::highlightWithAdjacentRelations(){
+    foreach (OLSOntologyGraphRelationItem* item, m_relations)
+        item->setSelected(true);
+}
+
+void OLSOntologyGraphNodeItem::highlightWithAdjacentNodes(){
+    foreach (OLSOntologyGraphRelationItem* item, m_relations){
+        item->sourceNode()->setSelected(true);
+        item->destinationNode()->setSelected(true);
+    }
+}
+
+
+void OLSOntologyGraphNodeItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+      nodeEventHandler("OnClick");
+      event->accept();
+      return;
+    } else if (event->button() == Qt::RightButton) {
+        nodeEventHandler("OnRightClick");
+        event->accept();
+        return;
+      }
+}
+
 void OLSOntologyGraphNodeItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-    emit nodeItemDoubleClickSignal(this->id(), event->buttons());
+    if (event->button() == Qt::LeftButton) {
+      nodeEventHandler("OnDoubleClick");
+      event->accept();
+      return;
+    }
 }
+
+void OLSOntologyGraphNodeItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
+    nodeEventHandler("OnMouseEnter");
+    event->accept();
+    return;
+}
+
+void OLSOntologyGraphNodeItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
+    nodeEventHandler("OnMouseLeave");
+    event->accept();
+    return;
+}
+
 
 void OLSOntologyGraphNodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) {
 
     QString nameRegime = qApp->property(ONTOLIS_NAME_REGIME).toString();
     QString displayName = (nameRegime == ONTOLIS_NAME_REGIME_LOCAL) ? name() : ((nameRegime == ONTOLIS_NAME_REGIME_QNAME) ? qualifiedName() : uri());
 
-//  if (m_textRect.isNull()) {
     if (displayName.length() > 0) {
       QFontMetrics metrics = painter->fontMetrics();
       m_textRect = metrics.boundingRect(displayName);
@@ -151,7 +220,6 @@ void OLSOntologyGraphNodeItem::paint(QPainter *painter, const QStyleOptionGraphi
     else {
       m_textRect = QRectF(-60.0, -35.0, 120.0, 70.0);
     }
-//  }
 
   QPen shapePen = this->pen();
   QPen textPen = this->pen();
@@ -196,6 +264,7 @@ void OLSOntologyGraphNodeItem::paint(QPainter *painter, const QStyleOptionGraphi
   painter->drawText(boundingRect(), displayName, textOption);
 }
 
+
 QRectF OLSOntologyGraphNodeItem::textRect() {
     return m_textRect;
 }
@@ -207,3 +276,17 @@ ExpandState OLSOntologyGraphNodeItem::expandState() {
 void OLSOntologyGraphNodeItem::setExpandState(ExpandState expandState){
     m_expandState = expandState;
 }
+
+QMap<QString, QString> OLSOntologyGraphNodeItem::getEvents()
+{
+    return m_nodeEvents;
+}
+
+void OLSOntologyGraphNodeItem::setEvents(QMap<QString, QString> &newEvents)
+{
+    m_nodeEvents = newEvents;
+}
+
+QMap<QString, QString> OLSOntologyGraphNodeItem::m_nodeEvents;
+
+

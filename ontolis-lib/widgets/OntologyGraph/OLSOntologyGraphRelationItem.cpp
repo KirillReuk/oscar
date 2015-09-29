@@ -45,7 +45,7 @@ QPainterPath OLSOntologyGraphRelationItem::shape() const
     stroker.setWidth(20);
     return stroker.createStroke(path);
 }
-
+/*
 void OLSOntologyGraphRelationItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
   if (event->button() != Qt::LeftButton) {
@@ -54,7 +54,7 @@ void OLSOntologyGraphRelationItem::mousePressEvent(QGraphicsSceneMouseEvent *eve
   }
   QGraphicsLineItem::mousePressEvent(event);
 }
-
+*/
 void OLSOntologyGraphRelationItem::setSourceNode(OLSOntologyGraphNodeItem *node) {
 
   m_sourceNode = node;
@@ -139,6 +139,72 @@ void OLSOntologyGraphRelationItem::attributesChanged() {
   }
 }
 
+void OLSOntologyGraphRelationItem::relationEventHandler(QString eventName)
+{
+    if (getEvents().find(eventName)==getEvents().end())
+        return;
+
+    QMap<QString, QString> eventList = getEvents();
+    QString eventToExecute = eventList[eventName];
+
+
+    if (eventToExecute == "Highlight")
+        setSelected(true);
+    else
+        if (eventToExecute == "Highlight With Adjacent")
+            highlightWithAdjacent();
+        else
+            if (eventToExecute == "Open options"){
+            } else
+                if (eventToExecute == "Show Tip"){
+                } else
+                    if (eventToExecute == "Delete"){
+                    }
+}
+
+void OLSOntologyGraphRelationItem::highlightWithAdjacent(){
+    this->sourceNode()->setSelected(true);
+    this->destinationNode()->setSelected(true);
+}
+
+
+
+void OLSOntologyGraphRelationItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+      relationEventHandler("OnClick");
+      event->accept();
+      return;
+    } else if (event->button() == Qt::RightButton) {
+        relationEventHandler("OnRightClick");
+        event->accept();
+        return;
+      }
+   //QGraphicsLineItem::mousePressEvent(event);
+}
+
+void OLSOntologyGraphRelationItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+    //emit nodeItemDoubleClickSignal(this->id(), event->buttons());
+    if (event->button() == Qt::LeftButton) {
+      relationEventHandler("OnDoubleClick");
+      event->accept();
+      return;
+    }
+}
+
+void OLSOntologyGraphRelationItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
+    relationEventHandler("OnMouseEnter");
+    event->accept();
+    return;
+}
+
+void OLSOntologyGraphRelationItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
+    relationEventHandler("OnMouseLeave");
+    event->accept();
+    return;
+}
+
 OLSOntologyData *OLSOntologyGraphRelationItem::relatedModel()
 {
     return m_dataController->getRelationById(m_id);
@@ -148,3 +214,15 @@ void OLSOntologyGraphRelationItem::paint(QPainter *painter, const QStyleOptionGr
 {
     m_visualizerMaster->tryPerformAdaptableVisualization(this, painter);
 }
+
+QMap<QString, QString> OLSOntologyGraphRelationItem::getEvents()
+{
+    return m_relationEvents;
+}
+
+void OLSOntologyGraphRelationItem::setEvents(QMap<QString, QString> &newEvents)
+{
+    m_relationEvents = newEvents;
+}
+
+QMap<QString, QString> OLSOntologyGraphRelationItem::m_relationEvents;
