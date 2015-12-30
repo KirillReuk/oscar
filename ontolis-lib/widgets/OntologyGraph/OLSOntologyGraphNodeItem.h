@@ -53,6 +53,7 @@ class OLSOntologyGraphNodeItem : public QObject, public QGraphicsRectItem, publi
     QRectF textRect();
     ExpandState expandState();
     void setExpandState(ExpandState expandState);
+    //void showContextMenuSlot(const QPoint &pos);
 
     QList<OLSOntologyGraphRelationItem *> getOutgoingRelations();
     QList<OLSOntologyGraphRelationItem *> getOutgoingRelationsByName(QString name);
@@ -61,6 +62,8 @@ class OLSOntologyGraphNodeItem : public QObject, public QGraphicsRectItem, publi
 
     static void setEvents(QMap<QString, QString> &);
     static QMap<QString, QString> getEvents();
+
+    bool openOptionFlag = false;
 
   signals:
     void nodeItemPositionChangedSignal(long id, const QPointF &newPosition);

@@ -71,10 +71,26 @@ OLSAdaptiveRelationVisualizerMaster* OLSOntologyGraphWidget::relationVisualizeMa
 
 void OLSOntologyGraphWidget::showContextMenuSlot(const QPoint &pos) {
 
+
   QList<QGraphicsItem *> selectedItems = m_ontologyView->scene()->selectedItems();
 
   QMenu contextMenu;
   QAction *addNodeAction = contextMenu.addAction(tr("Add node..."));
+
+  if (selectedItems.count() == 1) {
+    QGraphicsItem *selectedItem = selectedItems.at(0);
+    if (selectedItem->data(OLSOntologyGraphItemDataKey::kType).toInt() == OLSOntologyGraphItemType::kNode){
+        OLSOntologyGraphNodeItem *nodeItem = static_cast<OLSOntologyGraphNodeItem *>(selectedItem);
+        if (!nodeItem->openOptionFlag)
+            return;
+    }
+    else if (selectedItem->data(OLSOntologyGraphItemDataKey::kType).toInt() == OLSOntologyGraphItemType::kRelation) {
+        OLSOntologyGraphRelationItem *relationItem = static_cast<OLSOntologyGraphRelationItem *>(selectedItem);
+        if (!relationItem->openOptionFlag)
+            return;
+    }
+  }
+
 
   if (selectedItems.count() == 1) {
     QGraphicsItem *selectedItem = selectedItems.at(0);
@@ -260,7 +276,7 @@ void OLSOntologyGraphWidget::updateData() {
     this->setEnabled(false);
   }
   else {
-    this->setEnabled(true);    
+    this->setEnabled(true);
 
     QMap<long, OLSOntologyGraphNodeItem *> invalidatedNodesMap;
     QMap<long, OLSOntologyGraphRelationItem *> invalidatedRelationsMap;
@@ -430,7 +446,7 @@ void OLSOntologyGraphWidget::editNodeSlot(QString newNamespace, QString newName)
           QLabel *namespaceLabel = new QLabel(tr("Namespace:"));
           QLineEdit *nameLineEdit = new QLineEdit(m_dataController->getNodeById(nodeItem->id())->name);
           QLabel *nameLabel = new QLabel(tr("Name:"));
-          QDialogButtonBox *okCancelButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);          
+          QDialogButtonBox *okCancelButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
           connect(okCancelButtonBox, &QDialogButtonBox::accepted, [&dialog, &ok, &newName, &newNamespace, nameLineEdit, namespaceComboBox, this](){
               newName = nameLineEdit->text().trimmed();
               if (newName.isEmpty()) {
@@ -970,7 +986,7 @@ void OLSOntologyGraphWidget::nodeItemDoubleClickSlot(long id, Qt::MouseButtons m
         }
         for (long id: nodesToBeNotDisplayed)
             m_nodesToBeDisplayed.remove(id);
-        m_nodesToBeDisplayed << id;        
+        m_nodesToBeDisplayed << id;
         updateData();
     } else {
         return;

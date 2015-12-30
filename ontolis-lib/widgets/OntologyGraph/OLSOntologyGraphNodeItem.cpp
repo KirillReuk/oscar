@@ -146,6 +146,7 @@ void OLSOntologyGraphNodeItem::nodeEventHandler(QString eventName, QPoint point)
     QString eventToExecute = eventList[eventName];
 
 
+    openOptionFlag = false;
     if (eventToExecute == "Highlight")
         setSelected(true);
     else
@@ -156,6 +157,7 @@ void OLSOntologyGraphNodeItem::nodeEventHandler(QString eventName, QPoint point)
                 highlightWithAdjacentNodes();
             else
                 if (eventToExecute == "Open Options"){
+                    openOptionFlag = true;
                 } else
                     if (eventToExecute == "Show Tip"){
                         QToolTip::showText(point, this->name());
@@ -302,5 +304,4 @@ void OLSOntologyGraphNodeItem::setEvents(QMap<QString, QString> &newEvents)
 }
 
 QMap<QString, QString> OLSOntologyGraphNodeItem::m_nodeEvents;
-
 

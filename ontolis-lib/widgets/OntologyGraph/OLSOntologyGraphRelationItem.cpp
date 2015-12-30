@@ -150,13 +150,15 @@ void OLSOntologyGraphRelationItem::relationEventHandler(QString eventName, QPoin
     QMap<QString, QString> eventList = getEvents();
     QString eventToExecute = eventList[eventName];
 
+    openOptionFlag = false;
     if (eventToExecute == "Highlight")
         setSelected(true);
     else
         if (eventToExecute == "Highlight With Adjacent")
             highlightWithAdjacent();
         else
-            if (eventToExecute == "Open options"){
+            if (eventToExecute == "Open Options"){
+                openOptionFlag = true;
             } else
                 if (eventToExecute == "Show Tip"){
                     QString toolTipMessage = "From: ";

@@ -546,7 +546,7 @@ void OntolisWindow::editEventsSlot()
     //  ^  NodeEvents  ^--------------------------------------------------------------
 
     QSet<QString> nodeActionIds;
-    nodeActionIds << "Highlight" << "Highlight With Adjacent Edges" << "Highlight With Adjacent Nodes" << "Open options" << "Show Tip" << "Delete" << "De-Highlight";
+    nodeActionIds << "Highlight" << "Highlight With Adjacent Edges" << "Highlight With Adjacent Nodes" << "Open Options" << "Show Tip" << "Delete" << "De-Highlight";
 
     QListView *nodeActionList = new QListView(window);
     nodeActionList->setSelectionMode(QListView::SingleSelection);

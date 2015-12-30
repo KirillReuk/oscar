@@ -43,6 +43,8 @@ class OLSOntologyGraphRelationItem : public QGraphicsLineItem, public OLSOntolog
     QRectF boundingRect() const;
     QPainterPath shape() const;
 
+    bool openOptionFlag = false;
+
     virtual void adjust();
 
     virtual void removeFromNodes();
